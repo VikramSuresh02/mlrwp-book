@@ -8,6 +8,7 @@
 
 # Don't ignore .gitignore and *.foo files
 !.gitignore
+!.nojekyll
 !*.qmd
 !README.md
 #!*.css
