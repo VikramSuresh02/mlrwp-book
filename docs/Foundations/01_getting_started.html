@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Machine Learning in Non-Life Reserving - 2&nbsp; Getting started</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Foundations/02_intro_to_r.html" rel="next">
+<link href="../Foundations/foundations.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Machine Learning in Non-Life Reserving</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Foundations/foundations.html" class="sidebar-item-text sidebar-link">Foundations Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/01_getting_started.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/02_intro_to_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/03_top_ten_r_packages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">My Top 10 R Packages for Data Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/04_a_tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The tidyverse for actuaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/04_b_datatable.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R’s data.table - a useful package for actuaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/05_a_glms_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Reserving with GLMs in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/06_lasso.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Self-assembling claim reserving models using the LASSO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/07_mlr3example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ML modelling on triangles - a worked example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/08_intro_glm_gam_xgboost.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting to grips with GLM, GAM and XGBoost</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Data/data.html" class="sidebar-item-text sidebar-link">Data Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/simulationmachine.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">simulationmachine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/synthetic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">synthetic</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Literature/literature.html" class="sidebar-item-text sidebar-link">Literature review Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/history_nn_papers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/al_mudafer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Probabilistic Forecasting with Neural Networks Applied to Loss Reserving</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/baudry.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Non-parametric individual claim reserving in insurance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Practical/practical.html" class="sidebar-item-text sidebar-link">Practical Considerations Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Practical/time_resource.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Conclusion</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">References</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#programming-language-choice---r-or-python" id="toc-programming-language-choice---r-or-python" class="nav-link active" data-scroll-target="#programming-language-choice---r-or-python"><span class="toc-section-number">2.1</span>  Programming language choice - R or Python?</a></li>
+  <li><a href="#getting-started-with-ml" id="toc-getting-started-with-ml" class="nav-link" data-scroll-target="#getting-started-with-ml"><span class="toc-section-number">2.2</span>  Getting started with ML</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="toc-section-number">2.2.1</span>  Data</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><span class="toc-section-number">2.2.2</span>  Methods</a></li>
+  </ul></li>
+  <li><a href="#foundations-workstream" id="toc-foundations-workstream" class="nav-link" data-scroll-target="#foundations-workstream"><span class="toc-section-number">2.3</span>  Foundations workstream</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-getting-started" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p><em>This article was originally posted <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/intro-to-foundations-blog/">here</a> and authored by Nigel Carpenter and Grainne McGuire</em></p>
+<p>Getting started with data science and machine learning (ML) has never been easier or harder. Easier in the sense that there are a wealth of resources available online, but harder in that it can be difficult to know where to start. The Foundations workstream of the MLR working party aims to provide some signposts along the machine learning journey, with a focus on material and examples that are relevant to reserving.</p>
+<section id="programming-language-choice---r-or-python" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="programming-language-choice---r-or-python"><span class="header-section-number">2.1</span> Programming language choice - R or Python?</h2>
+<p>First bit of advice is don’t get bogged down in the language wars! Both have advantages and disadvantages. If you’re getting started with ML, then you want to use the language that you will find easiest to quickly learn so that you can focus on the techniques rather than your code syntax and deciphering cryptic error messages.</p>
+<p>If your workplace uses one language rather than the other then it will likely make sense to select that language. However, if you have no prior experience of either language and your reason for learning one of them is to gain a practical understanding of data science then the following guidance may be helpful.</p>
+<ul>
+<li>If your academic background is more statistics than computer science then R may better suit your background than Python.</li>
+<li>If your aim is to learn machine learning then either language is well suited and both have lots of free learning resources</li>
+<li>If your aim is to learn leading edge deep neural network techniques, Python is the community’s preferred language and has many more learning resources than R</li>
+</ul>
+<p>Management of dependencies (i.e.&nbsp;the particular versions of the language and packages used) in Python can be quite important. Particularly in cutting edge applications like neural networks, it may be necessary to use particular versions of packages to ensure that code runs correctly. But even simpler applications, like graphing can fall prey to this, where, for example, plotting code will run for one version of matplotlib but not for a more recent version. For this reason, newcomers to Python may need to get to grips with package management via environments sooner rather than later. Although the same issues can arise in R, anecdotally they appear less often, perhaps because the R core team emphasises backwards compatibility. Therefore, code examples in R are more likely to run without modification. Ultimately, if you use either language for practical applications, you should consider dependency</p>
+<p>No matter what language you select, if you start using applications in practice you should consider managing your dependencies appropriately to ensure that code from the past continues to work in future.</p>
+</section>
+<section id="getting-started-with-ml" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="getting-started-with-ml"><span class="header-section-number">2.2</span> Getting started with ML</h2>
+<section id="data" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="data"><span class="header-section-number">2.2.1</span> Data</h3>
+<p>You may have heard the saying that machine learning is at least 80% data, 20% modelling and that is generally true. The data frequently are the distinguishing factor between good models and great models.</p>
+<p>As actuaries, we already have a sound basis in handling data - we are trained to be sceptical of data and to question unusual patterns. Many of us have experience of collecting and cleaning data from different sources for reserving and pricing jobs and we understand the importance of checks and reconciliations. Therefore, the main learning curves for actuaries in relation to data are likely to involve:</p>
+<ul>
+<li>sourcing external data, e.g.&nbsp;via web-scraping. This also includes learning to access SQL (or similar) data bases.</li>
+<li>cleaning and processing data in your language of choice (pandas in python may help here; data.table or tidyverse in R)</li>
+</ul>
+</section>
+<section id="methods" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="methods"><span class="header-section-number">2.2.2</span> Methods</h3>
+<p>For those new to ML, our advice is to approach learning techniques from a familiar direction. As actuaries most of us should have some familiarity with Generalised Linear Models (GLMs) if we have studied General Insurance Pricing, so this suggests a starting point. The steps are then:</p>
+<ol type="1">
+<li><p>gain familiarity with using GLMs to apply traditional triangular reserving techniques. There are many papers and ready made R packages to help (e.g.&nbsp;<code>glmReserve()</code> in the R <a href="https://cran.r-project.org/web/packages/ChainLadder/index.html">ChainLadder</a> package).</p></li>
+<li><p>apply regularised GLMs (e.g.&nbsp;apply lasso or ridge regression or mixture of both) to fit something that looks like a GLM but in a machine learning way - in these methods, the machine selects features for inclusion in the model.</p></li>
+<li><p>Move onto tree based methods like decision trees and random forests and from there into more advanced ML techniques such as Gradient Boosting Machines (GBMs). Note that GBMs include <strong>XGBoost</strong>, which is very popular among data scientists.</p></li>
+<li><p>At this point you could then move to learning about neural networks. While these are likely to be very useful in the future, they are the least accessible both in terms of the actual methods - you need a good grasp of deep neural networks to understand the techniques most likely to be useful (such as recurrent neural networks - see, e.g., <a href="https://arxiv.org/abs/1804.09253">Deep Triangle</a>) and also in terms of the data and hardware needed to get good results. You often need lots of data and high end computer equipment (or cloud based virtual machines) to train these models.</p></li>
+</ol>
+</section>
+</section>
+<section id="foundations-workstream" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="foundations-workstream"><span class="header-section-number">2.3</span> Foundations workstream</h2>
+<p>Our task is to provide some stepping stones to getting started with ML. On our <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/foundations">Workstream page</a>, we maintain a list of useful resources, including a link to those compiled by a complimentary IFoA group, the <a href="https://www.actuaries.org.uk/practice-areas/general-insurance/research-working-parties/data-science">Data Science</a> Working Party.</p>
+<p>We also have a planned series of articles on getting started in Machine Learning which will be posted over the next few weeks. Topics will include getting started with R, data manipulation, graphing, and fitting various methods to claims reserving examples (following the steps outlined above). Note that initially our articles will mainly be in R, but we hope to extend content to including python examples in the future.</p>
+<p>So check back regularly and search for the <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/tags/foundations/">foundations</a> tag or look at the list of posts to view our content.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Foundations/foundations.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Foundations Workstream</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Foundations/02_intro_to_r.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

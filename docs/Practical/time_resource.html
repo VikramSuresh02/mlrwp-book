@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-04-23">
+
+<title>Machine Learning in Non-Life Reserving - 16&nbsp; Practical Considerations Part 1: Time &amp; Resource Limitations</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../summary.html" rel="next">
+<link href="../Practical/practical.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Machine Learning in Non-Life Reserving</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Foundations/foundations.html" class="sidebar-item-text sidebar-link">Foundations Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/01_getting_started.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/02_intro_to_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/03_top_ten_r_packages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">My Top 10 R Packages for Data Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/04_a_tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The tidyverse for actuaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/04_b_datatable.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R’s data.table - a useful package for actuaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/05_a_glms_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Reserving with GLMs in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/06_lasso.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Self-assembling claim reserving models using the LASSO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/07_mlr3example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ML modelling on triangles - a worked example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/08_intro_glm_gam_xgboost.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting to grips with GLM, GAM and XGBoost</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Data/data.html" class="sidebar-item-text sidebar-link">Data Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/simulationmachine.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">simulationmachine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/synthetic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">synthetic</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Literature/literature.html" class="sidebar-item-text sidebar-link">Literature review Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/history_nn_papers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/al_mudafer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Probabilistic Forecasting with Neural Networks Applied to Loss Reserving</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/baudry.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Non-parametric individual claim reserving in insurance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Practical/practical.html" class="sidebar-item-text sidebar-link">Practical Considerations Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Practical/time_resource.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Conclusion</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">References</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-pc-time-resource" id="toc-sec-pc-time-resource" class="nav-link active" data-scroll-target="#sec-pc-time-resource"><span class="toc-section-number">17</span>  Practical Considerations Part 1: Time &amp; Resource Limitations</a>
+  <ul class="collapse">
+  <li><a href="#why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" id="toc-why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" class="nav-link" data-scroll-target="#why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market"><span class="toc-section-number">17.1</span>  Why is Machine Learning not commonly being adopted in the UK Reserving Market?</a></li>
+  <li><a href="#time-limitations" id="toc-time-limitations" class="nav-link" data-scroll-target="#time-limitations"><span class="toc-section-number">17.2</span>  Time Limitations</a>
+  <ul class="collapse">
+  <li><a href="#process-issues" id="toc-process-issues" class="nav-link" data-scroll-target="#process-issues"><span class="toc-section-number">17.2.1</span>  Process Issues</a></li>
+  <li><a href="#what-can-be-done" id="toc-what-can-be-done" class="nav-link" data-scroll-target="#what-can-be-done"><span class="toc-section-number">17.2.2</span>  What Can Be Done?</a></li>
+  </ul></li>
+  <li><a href="#resource-limitations" id="toc-resource-limitations" class="nav-link" data-scroll-target="#resource-limitations"><span class="toc-section-number">17.3</span>  Resource Limitations</a>
+  <ul class="collapse">
+  <li><a href="#data-scientists-in-reserving" id="toc-data-scientists-in-reserving" class="nav-link" data-scroll-target="#data-scientists-in-reserving"><span class="toc-section-number">17.3.1</span>  Data Scientists in Reserving</a></li>
+  <li><a href="#what-can-be-done-1" id="toc-what-can-be-done-1" class="nav-link" data-scroll-target="#what-can-be-done-1"><span class="toc-section-number">17.3.2</span>  What Can Be Done?</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>iwilliams </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 23, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="sec-pc-time-resource" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Practical Considerations Part 1: Time &amp; Resource Limitations</h1>
+<p><em>This <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/pc-considerations-p1/">article</a> was written by <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/iwilliams/">Isabelle Williams</a> and originally published on 23 April 2022.</em></p>
+<section id="why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market"><span class="header-section-number">17.1</span> Why is Machine Learning not commonly being adopted in the UK Reserving Market?</h2>
+<p>There are many reasons why Machine Learning (“ML”) techniques are currently not being adopted in the UK reserving market. Previously, the issues faced were more theoretical than practical. However, in recent times, interest in this area has grown, and many companies are now considering investing in ML techniques for their reserving teams.</p>
+<p>As stated in the <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/pdf/MLR_UKSurveyIFoA.pdf">MLR Working Party UK Survey</a>, the three main reasons why companies are not currently investing into these methods are:</p>
+<ol type="1">
+<li><strong>Resource and Time Limitations</strong></li>
+<li>Accessibility of Knowledge</li>
+<li>Explainability (or rather, the perceived lack thereof) of models &amp; results</li>
+</ol>
+<p>The first of these will be discussed in this blog post, with the second and third points to follow as separate discussions.</p>
+</section>
+<section id="time-limitations" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="time-limitations"><span class="header-section-number">17.2</span> Time Limitations</h2>
+<p>Why are limits on reserving actuaries’ time such a barrier to developing ML techniques?</p>
+<p>This author believes that the answer lies in the quality of <strong>data and processes</strong> currently available to, and followed by, reserving teams. This can either be due to:</p>
+<ul>
+<li>Internal issues, for example:
+<ul>
+<li>Extensive processes built up over time without review</li>
+<li>Insufficient checks on data at critical stages of the process</li>
+</ul></li>
+<li>External issues, for example:
+<ul>
+<li>Poor quality data from third party sources</li>
+<li>Poor data capture at point of claim</li>
+</ul></li>
+</ul>
+<p><strong>Whether these issues are internal or external</strong>, poor quality data and processes will affect the time it takes to run a process, <strong>and therefore the reserving actuaries’ capacity to invest time into learning ML techniques</strong>. The diagram below describes the knock-on effects that poor quality data &amp; processes have on reserving actuaries’ time.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/tr_Picture1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">The Time Catch-22</figcaption><p></p>
+</figure>
+</div>
+<p>The Catch-22, or “vicious cycle” above begins with the highlighted issue, which is <strong>poor data and process quality</strong>. This fundamental problem then goes on to affect the entire reserving process, and to fuel the propagation of this cycle.</p>
+<p>The actions that actuaries can take regarding data issues <strong>varies widely between companies</strong>.</p>
+<ul>
+<li>Some actuarial teams are <strong>unable to fix</strong> poor data, as the processing of this data lies outside the remit of their department…
+<ul>
+<li>…or the data is provided via a third party…</li>
+<li>…often in a format that may be difficult to work with, particularly for ML purposes.</li>
+</ul></li>
+<li>Conversely, many teams can <strong>play too great a role in fixing data issues themselves</strong>…
+<ul>
+<li>…rather than tackling them at source via a third party…</li>
+<li>…or notifying other departments, whose role it is to fix the underlying data.</li>
+</ul></li>
+</ul>
+<p><strong>Process errors</strong>, however, frequently lie within the remit of the actuarial team, and as such can be addressed by the team themselves. For this reason, these will be the main focus of discussion in this longer-form article.</p>
+<section id="process-issues" class="level3" data-number="17.2.1">
+<h3 data-number="17.2.1" class="anchored" data-anchor-id="process-issues"><span class="header-section-number">17.2.1</span> Process Issues</h3>
+<p><strong>Process issues are common in any industry that deals with large amounts of data</strong>, and the insurance industry is no exception.</p>
+<p>With many changes in the adoption of that technology and software across the market in recent years, it is not uncommon to find data processes that have one or more of the following issues:</p>
+<p><img src="Images/tr_Picture2.png" class="img-fluid"></p>
+<p>The issue regarding manual steps is often one of the most pressing, as <strong>one manual step or “quick fix” can spiral into the creation of further “quick fixes” down the line</strong>, making processes more difficult and time-consuming to run correctly.</p>
+<p>These issues with data processes can be true for many reasons, including:</p>
+<ul>
+<li><strong>Lack of process documentation</strong>, often caused or exacerbated by:
+<ul>
+<li>Lack of attention from senior management…</li>
+<li>…leading to a lack of staff training to develop <strong>sustainable, robust processes</strong>…</li>
+<li>…leading to a lack of attention from staff</li>
+</ul></li>
+<li><strong>Staff or resourcing problems</strong>, such as:
+<ul>
+<li>Frequent changes of staff within the department
+<ul>
+<li>Changes in the level of technical expertise in the actuarial team</li>
+<li>Changes in the software preferences of those staff</li>
+</ul></li>
+<li><strong>Key person risk</strong> - reliance on a single staff member to run a process…
+<ul>
+<li>…and frustrations with inefficient processes leading to resignations</li>
+</ul></li>
+<li>Frequent moving of the process to different departments in the business, where expertise in different coding languages and/or software is an issue</li>
+</ul></li>
+</ul>
+<p>Once again, it should be noted that <strong>whatever the reason for process issues or inefficiencies, the outcome is the same</strong> when it comes to the pressure on staff time, and the resultant inability of the staff to invest in ML techniques.</p>
+<section id="complexity-of-processes" class="level4" data-number="17.2.1.1">
+<h4 data-number="17.2.1.1" class="anchored" data-anchor-id="complexity-of-processes"><span class="header-section-number">17.2.1.1</span> Complexity of Processes</h4>
+<p>The diagram below illustrates where such inefficiencies might occur within a typical reserving department data process:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/tr_Picture3.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">A possible typical reserving process</figcaption><p></p>
+</figure>
+</div>
+<p>In some organisations, who have begun to adopt ML in their reserving processes, the process could potentially be <strong>even more complicated</strong>, and may involve the running of an <strong>R or Python script</strong> at any stage between the generation of the raw data and the production of the report.</p>
+<p>A valid question at this point may be this – <strong>why would having a process designed in this way take any longer to run than a process that relies on, for example, a single script?</strong></p>
+<p>The answer to this question is complex. <strong>In theory</strong>, if such a process is:</p>
+<ul>
+<li>Well-documented</li>
+<li>Largely free of the aforementioned manual steps and “quick fixes”</li>
+<li>Fixed in a sustainable way when errors occur</li>
+</ul>
+<p>There should not be any issues. However, <strong>in practice</strong>, it has been the author’s experience that this is rarely the case, and in fact, the following sequence of steps is generally true:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/tr_Picture4.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">The impact of a complex multi-stage process</figcaption><p></p>
+</figure>
+</div>
+<p>In general, <strong>the longer the process and the more stages the process goes through, the longer it will take to run in practice</strong>.</p>
+<p>It is important to note that:</p>
+<ul>
+<li>The issues with the process do not typically appear at the stage in which actuarial judgement must be applied…</li>
+<li>…but at a <strong>processing stage prior to exercising this judgement</strong>.</li>
+<li>Despite this occurring at a processing stage…</li>
+<li>…the knock-on effects from longer required processing <strong>not only</strong> impacts the time of analysts, but <strong>also the time of senior reviewers</strong>.</li>
+</ul>
+</section>
+<section id="software-considerations" class="level4" data-number="17.2.1.2">
+<h4 data-number="17.2.1.2" class="anchored" data-anchor-id="software-considerations"><span class="header-section-number">17.2.1.2</span> Software Considerations</h4>
+<p>In assessing inefficiencies within a reserving process, a major factor that we must consider is <strong>the type of software used</strong>, particularly regarding the following practical considerations:</p>
+<p><img src="Images/tr_Picture5.png" class="img-fluid"></p>
+<p>Many reserving processes involve at least one stage where the data must be processed in Excel. <strong>It is worth noting that this thinking can be applied to any other</strong> software, but as Excel is so commonly used for reserving in the UK market at this time, it makes sense to assess this software with respect to the considerations outlined above.</p>
+<p>As Excel is the arguably still the most popular piece of software to use for constructing data processes and reserving models within actuarial departments, let us assess the features of Excel against some of the practical considerations above:</p>
+<p><img src="Images/tr_Picture6.png" class="img-fluid"></p>
+<p>Considering the qualities of Excel relating to the five criteria above, it is easy to see where <strong>inefficiencies and errors</strong> in the process can creep in – if the spreadsheet is not well-designed and maintained, the process can quickly fall over, particularly as new requirements develop over time.</p>
+<p>Excel is not the only software in which this can occur, and software such as R and Python that is frequently used for ML is not, for example, immune to difficulties when linking in other pieces of software, or an inability to sense-check results.</p>
+<p>However, it is worth noting that <strong>the choice of software for one particular stage can impact the efficiency of the entire process</strong>, and therefore the time it takes to run.</p>
+<p>In addition, <strong>the choice of software can impact the ability of the process to easily link in to ML software</strong>. This is something that needs to be considered when adding on additional ML modelling stages to a reserving process, or replacing modelling stages in an existing process with ML techniques.</p>
+</section>
+<section id="short-term-thinking" class="level4" data-number="17.2.1.3">
+<h4 data-number="17.2.1.3" class="anchored" data-anchor-id="short-term-thinking"><span class="header-section-number">17.2.1.3</span> Short-Term Thinking</h4>
+<p>A final point on process design is the point of prioritising <strong>“quick fixes”</strong> and <strong>“quick wins”</strong> over spending the time on building a process that has a longer build time, but is more robust in the long term.</p>
+<p>At the end of running many regular processes, it is common for time to be ring-fenced for “process development”. However, this time is often:</p>
+<ul>
+<li>De-prioritised <strong>at short notice</strong>…</li>
+<li>…or not spent in developing the process in a <strong>strategic or sustainable way</strong>…</li>
+<li>…or in a way that <strong>employs the best practices</strong> of process and software developments recognised by the industry.</li>
+</ul>
+<p>This thinking leads to the following two chains of events, which both have the same outcome:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/tr_Picture7.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">The impact of short-term thinking</figcaption><p></p>
+</figure>
+</div>
+<p><strong>With the time constraints frequently imposed on reserving teams</strong>, often from senior management, it is understandable that teams will prefer to implement quick short-term fixes in software that they are more familiar with than longer-term transformation projects. However, <strong>short-term thinking often causes further issues down the line.</strong></p>
+<p>This short-term thinking <strong>particularly impacts the adoption of new software</strong>, which as has already been mentioned, is often time-consuming to learn and test. In addition, a <strong>lack of recognition of the long-term benefits</strong> of adopting new software contributes to this hesitancy, leading teams to cling to the familiar and “stick with what they know”.</p>
+</section>
+</section>
+<section id="what-can-be-done" class="level3" data-number="17.2.2">
+<h3 data-number="17.2.2" class="anchored" data-anchor-id="what-can-be-done"><span class="header-section-number">17.2.2</span> What Can Be Done?</h3>
+<section id="step-1-recognise-required-resources" class="level4" data-number="17.2.2.1">
+<h4 data-number="17.2.2.1" class="anchored" data-anchor-id="step-1-recognise-required-resources"><span class="header-section-number">17.2.2.1</span> Step 1: Recognise Required Resources</h4>
+<p><strong>Recognising the resources required to fix the problem</strong> is the first step in the process. Once the extent of the issues in the current process are recognised, management can make decisions as to where the resources will come from. For example:</p>
+<ul>
+<li>Resources can be diverted away from regular processes</li>
+<li>Contractors and/or other expert resource can be bought in from other companies</li>
+<li>Expert resources (e.g.&nbsp;IT staff, data analysts, data scientists) from elsewhere in the business can be brought in to bolster actuarial resource</li>
+<li>Further analysts can be recruited, if required.</li>
+</ul>
+</section>
+<section id="step-2-clean-up-processes" class="level4" data-number="17.2.2.2">
+<h4 data-number="17.2.2.2" class="anchored" data-anchor-id="step-2-clean-up-processes"><span class="header-section-number">17.2.2.2</span> Step 2: Clean Up Processes</h4>
+<p>Once resources are made available, the next action that can be taken is to <strong>clean up issues in the process</strong>. A good first step in this regard is to set up automated reconciliation and sense-checking processes on external data, or alternative internal sources. For example:</p>
+<ul>
+<li>Go through with staff what checks are currently implemented for common data issues</li>
+<li>Consider how current checks that are implemented in a more manual process can be automated</li>
+<li>Consider software that could potentially be used to implement these automated checks, and how it can be made to tie in to the current process.</li>
+</ul>
+</section>
+<section id="step-3-automate-automate-automate" class="level4" data-number="17.2.2.3">
+<h4 data-number="17.2.2.3" class="anchored" data-anchor-id="step-3-automate-automate-automate"><span class="header-section-number">17.2.2.3</span> Step 3: Automate, automate, automate!</h4>
+<p>The next action that can be taken is to implement automated reserving tools, such as the Chain Ladder Package (available in <a href="https://www.rdocumentation.org/packages/ChainLadder/versions/0.2.15">R</a> and <a href="https://chainladder-python.readthedocs.io/en/latest/intro.html">Python</a>) to automate reserving processes.</p>
+<p>Managers should bear in mind the following:</p>
+<ul>
+<li>These are not always appropriate.</li>
+<li>When they are appropriate, they are sometimes best used as a “guide” or “benchmark” against which a more manual process can be assessed.</li>
+</ul>
+<p>The appropriateness of automated reserving tools, and some considerations surrounding these, are better placed as the subject of a future blog post.</p>
+<p>An often overlooked piece is that <strong>visualisations and reports can also be automated in a similar way to the checks and models above</strong>.</p>
+<ul>
+<li>The generation of an automated report can save a department valuable time…</li>
+<li>…and although there is certainly value to generating custom visuals and ad-hoc sections to a report…</li>
+<li>…an automatically generated framework can be exceptionally helpful, particularly in reporting periods where there may be very little movement to report.</li>
+</ul>
+</section>
+<section id="step-4-make-it-sustainable" class="level4" data-number="17.2.2.4">
+<h4 data-number="17.2.2.4" class="anchored" data-anchor-id="step-4-make-it-sustainable"><span class="header-section-number">17.2.2.4</span> Step 4: Make it Sustainable</h4>
+<p>It is important that once an automated process is created, <strong>the process is made as sustainable as it possibly can be</strong>. Attention should always be paid to how bug fixes are implemented, and how the process is maintained over time as the needs of the business change.</p>
+<p>Integration into the rest of the processes used within the department is also paramount. Managers can research into how software that could produce ML models can be linked into other software currently used within the department. For example:</p>
+<ul>
+<li>Connecting current data storage solutions to ML software</li>
+<li>Reading in data from Excel sheets</li>
+<li>Linking R/Python to proprietary software</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="resource-limitations" class="level2" data-number="17.3">
+<h2 data-number="17.3" class="anchored" data-anchor-id="resource-limitations"><span class="header-section-number">17.3</span> Resource Limitations</h2>
+<p>Why are limits on actuarial resources a barrier to implementing ML techniques?</p>
+<p>The author believes that the issue is three-fold:</p>
+<ol type="1">
+<li>Firstly, there is <strong>insufficient time</strong> for reserving actuaries to develop ML skills</li>
+<li>Secondly, there is <strong>insufficient emphasis</strong> on the development of ML skills in the first place, potentially due to a <strong>lack of enthusiasm</strong> on either the part of staff or managers</li>
+<li>Lastly, there are <strong>few resources</strong> available for reserving actuaries to learn ML skills</li>
+</ol>
+<p>The diagram below illustrates these issues, and the impact thereof on the issue of resourcing:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/tr_Picture8.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">The Resources Catch-22</figcaption><p></p>
+</figure>
+</div>
+<p>The last of these points is already being addressed by the working party in the provision of resources, but the causes behind the first two have not yet been addressed.</p>
+<p>The first of these points can be addressed by the first half of the cycle, up until the point where few applicable resources are available. The time available for reserving actuaries to learn ML techniques is constrained by many things, not exclusive to those included in the cycle. For example:</p>
+<ul>
+<li>Lack of opportunities in the actuarial curriculum to pursue ML research in a hands-on setting</li>
+<li>Lack of reserving resources to complete regular work, which leads to the Time Constraints Catch-22 previously discussed</li>
+</ul>
+<p>The lack of opportunities in the actuarial curriculum to pursue ML research will also lead to the second point, as these skills may not be seen as a priority for many actuaries while the IFoA does not emphasise the development of these skills via the exam curriculum. <strong>It is worth noting that the Data Science learning path provided gives a good theoretical understanding of many ML techniques</strong>, but does not yet provide a practical pathway for learning ML-relevant techniques.</p>
+<section id="data-scientists-in-reserving" class="level3" data-number="17.3.1">
+<h3 data-number="17.3.1" class="anchored" data-anchor-id="data-scientists-in-reserving"><span class="header-section-number">17.3.1</span> Data Scientists in Reserving</h3>
+<p>An apparently simple solution to the lack of ML expertise and resources, as well as the lack of time to develop these resources, in reserving teams is to hire, or second, data science resource into the team. However, this is not currently common practice for a number of reasons, which are listed below:</p>
+<p><img src="Images/tr_Picture9.png" class="img-fluid"></p>
+<p>All of these are issues that can be resolved, but many companies would prefer to train their own resources. This is also a valid option for many companies, particularly those without specific data science resource available. However, referring back to the Resources Catch-22, the issue among management when it comes to developing this resource is often one of expertise.</p>
+</section>
+<section id="what-can-be-done-1" class="level3" data-number="17.3.2">
+<h3 data-number="17.3.2" class="anchored" data-anchor-id="what-can-be-done-1"><span class="header-section-number">17.3.2</span> What Can Be Done?</h3>
+<p>As previously stated, <strong>one of the goals of this working party is to improve the availability of machine learning resources, and to create applicable machine learning resources for reserving actuaries to make use of</strong>. Therefore, some of the issues present within the Catch-22 will be addressed, at least with regards to the availability of applicable ML resources.</p>
+<p>Once these resources are available, there is the issue of what can be done to ensure that methods pioneered by the working party are adopted by reserving actuaries.</p>
+<ul>
+<li>Time will need to be made available for actuaries to do this, whether this is through:
+<ul>
+<li>The introduction of modelling projects on company time…</li>
+<li>…or within the actuaries’ own time</li>
+</ul></li>
+<li>For example:
+<ul>
+<li>Through regular research meetings or presentations…</li>
+<li>…or setting aside time for research and team development in times where resources are less pressured.</li>
+</ul></li>
+</ul>
+<p>There is also the possibility of recruiting resource into the team via external means.</p>
+<p>It is worthwhile stating at this point that not all companies have data science resource available, or the wherewithal to recruit specific data science resource. However, if this resource is available, requests can often be made for this resource to be shared for certain purposes – for example:</p>
+<ul>
+<li>Resource can often be negotiated for a specific project, or specific purpose</li>
+<li>If not, there is potential for resource to be made available on secondment, or for external consulting resource to be brought in.</li>
+</ul>
+<p>Recruiting data science resource specifically into reserving teams can be difficult. <strong>There are many barriers to recruiting this resource directly into reserving teams</strong>. While there are certainly firms in the market that are doing this, it can often be difficult to:</p>
+<ul>
+<li>Navigate management barriers to recruiting data scientists into actuarial teams</li>
+<li>Tailor job descriptions so that skills are sufficiently relevant to data scientists and will not disincentivise them from applying for these roles</li>
+<li>Aid management to make the best use of these resources.</li>
+</ul>
+<p>The wider topic of recruiting data scientists into reserving teams is likely better to be the subject of a longer article, and so will not be fully discussed here. However, it is important to note that this is often an issue, and one that should be solved if teams wish to employ hybrid resource in the future.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Practical/practical.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Practical Considerations Workstream</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

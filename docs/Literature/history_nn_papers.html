@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Machine Learning in Non-Life Reserving - 13&nbsp; A brief history of papers looking at using neural networks in reserving</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Literature/al_mudafer.html" rel="next">
+<link href="../Literature/literature.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Machine Learning in Non-Life Reserving</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Foundations/foundations.html" class="sidebar-item-text sidebar-link">Foundations Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/01_getting_started.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/02_intro_to_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/03_top_ten_r_packages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">My Top 10 R Packages for Data Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/04_a_tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The tidyverse for actuaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/04_b_datatable.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R’s data.table - a useful package for actuaries</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/05_a_glms_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Reserving with GLMs in R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/06_lasso.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Self-assembling claim reserving models using the LASSO</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/07_mlr3example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ML modelling on triangles - a worked example</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Foundations/08_intro_glm_gam_xgboost.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting to grips with GLM, GAM and XGBoost</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Data/data.html" class="sidebar-item-text sidebar-link">Data Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/simulationmachine.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">simulationmachine</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Data/synthetic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">synthetic</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Literature/literature.html" class="sidebar-item-text sidebar-link">Literature review Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/history_nn_papers.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/al_mudafer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Probabilistic Forecasting with Neural Networks Applied to Loss Reserving</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Literature/baudry.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Non-parametric individual claim reserving in insurance</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Practical/practical.html" class="sidebar-item-text sidebar-link">Practical Considerations Workstream</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Practical/time_resource.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Conclusion</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">References</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#how-are-neural-networks-being-used-in-reserving" id="toc-how-are-neural-networks-being-used-in-reserving" class="nav-link active" data-scroll-target="#how-are-neural-networks-being-used-in-reserving"><span class="toc-section-number">13.1</span>  How are neural networks being used in reserving?</a></li>
+  <li><a href="#the-papers" id="toc-the-papers" class="nav-link" data-scroll-target="#the-papers"><span class="toc-section-number">13.2</span>  The papers</a>
+  <ul class="collapse">
+  <li><a href="#wuthrich-m.-v.-neural-networks-applied-to-chain-ladder-reserving" id="toc-wuthrich-m.-v.-neural-networks-applied-to-chain-ladder-reserving" class="nav-link" data-scroll-target="#wuthrich-m.-v.-neural-networks-applied-to-chain-ladder-reserving"><span class="toc-section-number">13.2.1</span>  2017 Wuthrich, M. V. Neural Networks Applied to Chain-Ladder Reserving</a></li>
+  <li><a href="#kuo-k.-deeptriangle-a-deep-learning-approach-to-loss-reserving." id="toc-kuo-k.-deeptriangle-a-deep-learning-approach-to-loss-reserving." class="nav-link" data-scroll-target="#kuo-k.-deeptriangle-a-deep-learning-approach-to-loss-reserving."><span class="toc-section-number">13.2.2</span>  2018 - Kuo, K. DeepTriangle: A deep learning approach to loss reserving.</a></li>
+  <li><a href="#gabrielli-a.-a-neural-network-boosted-double-overdispersed-poisson-claims-reserving-model." id="toc-gabrielli-a.-a-neural-network-boosted-double-overdispersed-poisson-claims-reserving-model." class="nav-link" data-scroll-target="#gabrielli-a.-a-neural-network-boosted-double-overdispersed-poisson-claims-reserving-model."><span class="toc-section-number">13.2.3</span>  2019 Gabrielli, A. A neural network boosted double overdispersed Poisson claims reserving model.</a></li>
+  <li><a href="#kuo-k.-individual-claims-forecasting-with-bayesian-mixture-density-networks." id="toc-kuo-k.-individual-claims-forecasting-with-bayesian-mixture-density-networks." class="nav-link" data-scroll-target="#kuo-k.-individual-claims-forecasting-with-bayesian-mixture-density-networks."><span class="toc-section-number">13.2.4</span>  2020 Kuo, K. Individual Claims Forecasting with Bayesian Mixture Density Networks.</a></li>
+  <li><a href="#delong-l.-m.-lindholm-and-m.-v.-wüthrich.-collective-reserving-using-individual-claims-data." id="toc-delong-l.-m.-lindholm-and-m.-v.-wüthrich.-collective-reserving-using-individual-claims-data." class="nav-link" data-scroll-target="#delong-l.-m.-lindholm-and-m.-v.-wüthrich.-collective-reserving-using-individual-claims-data."><span class="toc-section-number">13.2.5</span>  2020 Delong, L., M. Lindholm, and M. V. Wüthrich. Collective Reserving using Individual Claims Data.</a></li>
+  <li><a href="#gabrielli-a.-an-individual-claims-reserving-model-for-reported-claims" id="toc-gabrielli-a.-an-individual-claims-reserving-model-for-reported-claims" class="nav-link" data-scroll-target="#gabrielli-a.-an-individual-claims-reserving-model-for-reported-claims"><span class="toc-section-number">13.2.6</span>  2020 Gabrielli, A. An individual Claims Reserving Model for Reported Claims</a></li>
+  </ul></li>
+  <li><a href="#nn-intro" id="toc-nn-intro" class="nav-link" data-scroll-target="#nn-intro"><span class="toc-section-number">13.3</span>  A high level introduction to neural networks</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-history-nn-reserving" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p><em>This <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/l-nn-cas2020/">article</a> was written by <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/kkuo/">Kevin Kuo</a> and originally published on 26 July 2021.</em> <em>The content was first presented at the CAS Casualty Loss Reserving Seminar, the CIA Appointed Actuary Virtual Seminar and at GIRO in the Autumn of 2020. The presentation can be viewed <a href="http://mp.streamamg.com/tiny/tsob9">here</a>.</em></p>
+<section id="how-are-neural-networks-being-used-in-reserving" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="how-are-neural-networks-being-used-in-reserving"><span class="header-section-number">13.1</span> How are neural networks being used in reserving?</h2>
+<p>There are a number of steps in between, say, a process of taking your Excel template from last quarter, copying the data, and then selecting factors, to having a fully automated individual claims reserving system. For example, a process might involve organising where the data is coming from, having a robust and automated process to do the data transformations, all the way to taking the results and putting them in a report and disseminating those results. If you don’t already have those steps figured out you might better spend your time resolving these steps first before diving into machine learning.</p>
+<p>In my opinion none of the existing published methodologies will be deployed into production as they currently stand. That is not to say that these are pie in the sky concepts that are not relevant in real life, it’s just that we are, as a field, pretty early into the journey of figuring out what works and what doesn’t. In fact I’m pretty confident that whatever people are building today in companies, or will be building in the next year or two, they will definitely incorporate concepts that have been introduced in these papers.</p>
+<p>Don’t underestimate how quickly technology moves, even in a somewhat relatively slower moving industry such as ours. It takes just a couple of companies who really care to move things forward a bit. I think we’ve hit critical mass already in terms of the talent and awareness of machine learning in industry.</p>
+<p>I think machine learning on claims is particularly interesting because it has applications beyond reserving. If you think about it, if you’re able to forecast future cashflows for each individual claim you can use that information as part of a claims triaging process or other claims analytics applications.</p>
+<p>It is worth pointing out that there are other approaches other than neural networks to all of this, but here we are just focusing on neural networks. If you are unfamiliar with neural networks, then scroll down to the end of this article for a brief, high level introduction (or click on the the two question marks here to jump down to this section: <span class="citation" data-cites="nn-intro">(<a href="../references.html#ref-nn-intro" role="doc-biblioref"><strong>nn-intro?</strong></a>)</span>).</p>
+</section>
+<section id="the-papers" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="the-papers"><span class="header-section-number">13.2</span> The papers</h2>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Paper </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="1"><td colspan="1" style="border-bottom: 1px solid;"><strong>2017</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2966126" style="     ">Wüthrich, M. V. Neural Networks Applied to Chain-Ladder Reserving</a> </td>
+  </tr>
+  <tr grouplength="2"><td colspan="1" style="border-bottom: 1px solid;"><strong>2018</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://www.mdpi.com/2227-9091/7/3/97" style="     ">Kuo, K. DeepTriangle: A deep learning approach to loss reserving</a> </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3288454" style="     ">Gabrielli, A., R. Richman, and M. V. Wüthrich. Neural Network Embedding of the Over-Dispersed Poisson Reserving Model</a> </td>
+  </tr>
+  <tr grouplength="1"><td colspan="1" style="border-bottom: 1px solid;"><strong>2019</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3365517" style="     ">Gabrielli, A. A neural network boosted double overdispersed Poisson claims reserving model</a> </td>
+  </tr>
+  <tr grouplength="3"><td colspan="1" style="border-bottom: 1px solid;"><strong>2020</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://arxiv.org/abs/2003.02453" style="     ">Kuo, K. Individual Claims Forecasting with Bayesian Mixture Density Networks</a> </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3582398" style="     ">Delong, L., M. Lindholm, and M. V. Wüthrich. Collective Reserving using Individual Claims Data</a> </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3612930" style="     ">Gabrielli, A. An individual Claims Reserving Model for Reported Claims</a> </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>The first thing you will notice when looking at the list of papers is that by actuarial literature standards this is pretty recent work. We are at the intersection of insurance and machine learning, so that the speed at which this has grown is somewhere between those two fields. Another thing you will notice is that we don’t have too much diversity at this point - it is the same 4 or 5 people putting out papers every year. But as we do a better job of promoting this content and inviting people to contribute, I am hopeful we will get more perspectives in the coming years.</p>
+<section id="wuthrich-m.-v.-neural-networks-applied-to-chain-ladder-reserving" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="wuthrich-m.-v.-neural-networks-applied-to-chain-ladder-reserving"><span class="header-section-number">13.2.1</span> 2017 Wuthrich, M. V. Neural Networks Applied to Chain-Ladder Reserving</h3>
+<p>Back in 2017 Mario Wuthrich at ETH Zurich, first proposed a Neural Network that takes some triangle characteristics to predict age to age factors. That’s all it was - a pretty straight-forward application to triangles.</p>
+<p><img src="Images/Picture4.png" class="img-fluid"></p>
+</section>
+<section id="kuo-k.-deeptriangle-a-deep-learning-approach-to-loss-reserving." class="level3" data-number="13.2.2">
+<h3 data-number="13.2.2" class="anchored" data-anchor-id="kuo-k.-deeptriangle-a-deep-learning-approach-to-loss-reserving."><span class="header-section-number">13.2.2</span> 2018 - Kuo, K. DeepTriangle: A deep learning approach to loss reserving.</h3>
+<p>In 2018, as a response to the CAS reserving call for papers programme, I proposed an architecture that takes sequences of paid losses and case reserves. This used Schedule P data on triangles. It then feeds those sequences through a recurrent neural net to output sequences of future payments and claims outstanding amounts.</p>
+<p><img src="Images/Picture5.png" class="img-fluid"></p>
+</section>
+<section id="gabrielli-a.-a-neural-network-boosted-double-overdispersed-poisson-claims-reserving-model." class="level3" data-number="13.2.3">
+<h3 data-number="13.2.3" class="anchored" data-anchor-id="gabrielli-a.-a-neural-network-boosted-double-overdispersed-poisson-claims-reserving-model."><span class="header-section-number">13.2.3</span> 2019 Gabrielli, A. A neural network boosted double overdispersed Poisson claims reserving model.</h3>
+<p>Around the same time Andrea Garbielli at ETH, one of Mario Wuthrich’s students, proposed this. You start with a triangle, and then look at the ODP model predictions and then train a neural net. The neural net initialises to give the ODP predictions, but you train on the residuals, so it’s sort of a boosting process (as evidenced in the title).</p>
+<p><img src="Images/Picture6.png" class="img-fluid"> And as a follow up to that work he also incorporated claim counts in addition to the claim amounts, and then performed what we call a ‘multitask learning’ in the neural net to predict both quantities simultaneously with better accuracy.</p>
+<p><img src="Images/Picture7.png" class="img-fluid"></p>
+</section>
+<section id="kuo-k.-individual-claims-forecasting-with-bayesian-mixture-density-networks." class="level3" data-number="13.2.4">
+<h3 data-number="13.2.4" class="anchored" data-anchor-id="kuo-k.-individual-claims-forecasting-with-bayesian-mixture-density-networks."><span class="header-section-number">13.2.4</span> 2020 Kuo, K. Individual Claims Forecasting with Bayesian Mixture Density Networks.</h3>
+<p>In 2019/20 I was looking at individual claims forecasts. This used encoder-decoder architecture, and took sequences of cashflows of individual claims, as well as the static claims characteristics, to come up with paid loss and recovery distributions. So the main contribution here was to develop a way that we can get distributions of the future cash flows, in addition to just the point estimates.</p>
+<p><img src="Images/Picture8.png" class="img-fluid"></p>
+</section>
+<section id="delong-l.-m.-lindholm-and-m.-v.-wüthrich.-collective-reserving-using-individual-claims-data." class="level3" data-number="13.2.5">
+<h3 data-number="13.2.5" class="anchored" data-anchor-id="delong-l.-m.-lindholm-and-m.-v.-wüthrich.-collective-reserving-using-individual-claims-data."><span class="header-section-number">13.2.5</span> 2020 Delong, L., M. Lindholm, and M. V. Wüthrich. Collective Reserving using Individual Claims Data.</h3>
+<p>Also in 2020 Delong and collaborators took the claim life cycle, broken down into separate processes. For each of those processes (closer to a first principles approach) they sort of abstract away the stochastic process by parameterising them with neural nets.</p>
+</section>
+<section id="gabrielli-a.-an-individual-claims-reserving-model-for-reported-claims" class="level3" data-number="13.2.6">
+<h3 data-number="13.2.6" class="anchored" data-anchor-id="gabrielli-a.-an-individual-claims-reserving-model-for-reported-claims"><span class="header-section-number">13.2.6</span> 2020 Gabrielli, A. An individual Claims Reserving Model for Reported Claims</h3>
+<p>More recently Gabrielli again attacks the individual claims problem. This is on reported claims. Then from this architecture you can get the expected probability of payments and then the payment amount given there’s a payment for each time period.</p>
+<p><img src="Images/Picture9.png" class="img-fluid"></p>
+<p>So that’s a quick run through. You can see the shift in focus from aggregate triangle methods to individual claims which I think is interesting and a good direction to be moving in, because we have a lot more data with individual claims, and with the more data theoretically we should come up with better estimates and better insights.</p>
+</section>
+</section>
+<section id="nn-intro" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="nn-intro"><span class="header-section-number">13.3</span> A high level introduction to neural networks</h2>
+<p>I’ll conclude this article with a high level introduction to neural networks for those unfamiliar with them.</p>
+<p>At a high level a neural network is just a function that takes in some inputs and tries to predict an output - much like a generalised linear model (GLM). In fact you can think of a neural network as a bunch of GLMs chained together.</p>
+<p><img src="Images/nn_diagram.png" class="img-fluid"></p>
+<p>The way it works is that we take our inputs, which we can think of as a vector, and then apply a number of matrix multiplications to it, ie neural network transformations. Between the matrix multiplications we have to add some sort of non-linearity to keep things interesting. These are known as the activations. Why do we need the non-linearity? Going back to linear algebra 101 - if we compose a series of linear transformations together we just end up with another linear transformation, which is not very interesting nor particularly flexible.</p>
+<p>The picture below is another way that we can look at it. You have some inputs, and then layers, that you can think of as matrices, and then the weights are just entries in the matrix.</p>
+<p><img src="Images/Picture2.png" class="img-fluid"></p>
+<p>So we initially predict some values with our neural nets. In the beginning it’s not going to be great - if we compare them to the true targets it’s going to be way off. But then we can quantify how unhappy we are with these predictions using measures like mean square error (MSE).</p>
+<p>For example, if we take the difference between the predicted and actual payment amount in some future time period, we can go back and tweak the weights a little bit.</p>
+<p>The idea is that we do this over and over again until we have a model that provides reasonable predictions. This process will be analogous to say, iteratively reweighted least squares in a GLM context.</p>
+<p><img src="Images/Picture3.png" class="img-fluid"></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Literature/literature.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Literature review Workstream</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Literature/al_mudafer.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Probabilistic Forecasting with Neural Networks Applied to Loss Reserving</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

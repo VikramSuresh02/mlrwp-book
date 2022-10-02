@@ -1,0 +1,8 @@
+# Summary
+
+the content in this book was created using the following R environment
+
+```{r}
+sessionInfo()
+```
+

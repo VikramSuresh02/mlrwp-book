@@ -1,0 +1,5 @@
+# Preface {.unnumbered}
+
+This book gathers together material produced by the MLRWP.
+
+To learn more visit <https://institute-and-faculty-of-actuaries.github.io/mlr-blog/>.

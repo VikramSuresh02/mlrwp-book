@@ -1,0 +1,865 @@
+# Reserving with GLMs in Python {#f-python}
+
+*This is a rerun of the previous chapter but with code in Python rather than in R. Add publish date and links to authors*
+
+
+
+*This is a repost of our previous [Reserving with GLMs article](/mlr-blog/post/glms/) with all code in Python rather than in R. There are some minor edits due to the language swap, but essentially the article is unchanged. If this is your first time seeing this article, and you are an R user, then you may prefer to read the original article.*
+
+
+## Introduction
+
+An aim of the MLR working party is to promote the use of machine learning (ML) in reserving. So why then are we talking about using GLMs for reserving? Well, as noted in our [introductory post](/mlr-blog/post/intro-to-foundations-blog/), we consider that getting familiar with using GLMs for reserving is a good place to begin your ML journey - GLMs should already be familiar from pricing so making the switch to reserving with GLMs is a useful first step.
+
+The first time I did a reserving job (back in 2001) I used GLMs. Coming from a statistical background and being new to the actuarial workplace at the time, this didn't seem unusual to me. Since then, most of my reserving jobs have used GLMs - personally I find it a lot easier and less error-prone than working with excel. Also, once you know what you are doing, you can do everything with a GLM that you can do with an excel-based model, and then more.
+
+However, some people reading this article may be new to the idea of using GLMs in reserving. So I'm going to use an example where we start with a chain ladder model, fitted as a GLM and then explore the additional features that we can add using a GLM. All the Python code will be shared here.
+
+The material is mostly based on a 2016 CAS monograph [Stochastic Loss Reserving Using Generalized Linear Models](https://www.casact.org/monograph/cas-monograph-no-3) that I co-authored with Greg Taylor.
+
+Before we begin, let's import the Python packages that we need. 
+
+```{python}
+import numpy as np #deal with arrays in python
+import pandas as pd #python data frames
+import statsmodels.api as sm  # GLM
+import statsmodels.formula.api as smf  # formula based GLM
+import matplotlib.pyplot as plt #standard pythonic approach for plots
+import seaborn as sns #nice library for plots
+```
+
+## Data
+
+The data used here were sourced from the Meyers and Shi (2011) database, and are the workers compensation triangle of the New Jersey Manufacturers Group. They are displayed in Section 1.3 of the monograph. We've made a CSV file of the data (in long format) available here for convenience. 
+
+
+```{python}
+msdata = pd.read_csv(
+    "https://institute-and-faculty-of-actuaries.github.io/mlr-blog/csv/glms_meyershi.csv",
+    dtype = {
+        'acc_year': int,
+        'dev_year': int,
+        'incremental': float,
+        'cumulative': float}
+    )
+print(msdata)
+```
+
+So we have four columns:
+
+* 'acc_year': accident year, numbered from 1 to 10
+* 'dev_year': development year, also numbered from 1 to 10
+* 'cumulative': cumulative payments to date
+* 'incremental': incremental payments for that accident year, development year combination.
+
+
+We can also plot the data
+
+
+```{python}
+
+fig, axs = plt.subplots(1, 2)
+plt.subplots_adjust(wspace=1)
+g=sns.lineplot(x='dev_year',y='cumulative',data=msdata,hue='acc_year',palette=sns.color_palette("deep"), ax=axs[0])
+g.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize = 6)
+g.set_title("Cumulative payments")
+
+g1=sns.lineplot(x='dev_year',y='incremental',data=msdata,hue='acc_year',palette=sns.color_palette("deep"), ax=axs[1])
+g1.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize = 6)
+g1.set_title("Incremental payments")
+
+
+```
+
+
+The data look quite well behaved - each year seems to have a similar development pattern.
+
+Before we go further, we'll add some additional variables to the data set:
+
+* Categorical (or factor) versions of 'acc_year' and 'dev_year' - these will be needed later for modelling
+* A calendar year variable, 'cal_year'
+
+Later on we'll need to be able to apply the same categorical structure to subsets of 'acc_year' and 'dev_year' so we make an object to hold the categorisation, 'cat_type'.
+
+We'll have a look at the data and check the variable types to ensure everything is as it should be.
+
+
+```{python}
+
+cat_type = pd.api.types.CategoricalDtype(categories=list(range(1,11)), ordered=True)
+
+msdata["acc_year_factor"] = msdata["acc_year"].astype(cat_type)
+msdata["dev_year_factor"] = msdata["dev_year"].astype(cat_type)
+msdata["cal_year"] = msdata["acc_year"] + msdata["dev_year"] - 1  # subtract 1 so that first cal_year is 1 not 2
+
+print(msdata.head(6))
+print(msdata.dtypes)
+
+```
+
+
+## Chain ladder model
+
+### Fitting the model
+
+Our first model will be the familiar chain ladder (volume all) model.
+The monograph (and references therein) note that certain types of GLM gives exactly the same result as the chain ladder so I'm going to use that to get the chain ladder result. 
+
+The specific model I'm using that replicates the chain ladder result is the Over-dispersed Poisson (ODP) cross classified (cc) model (Sections 3.3.2 and 3.3.3 of the monograph).
+
+To apply the model, we will use the `glm()` function from the **statsmodels.formula.api** package. The cross-classified model requires separate levels for each of accident and development year so we use the categorical versions of these variates. 
+
+To fit an ODP model, we use the `scale='X2'` argument to `fit()` - the `X2` stands for chi-squared and tells `glm()` to use a Pearson chi-squared estimate for the scale parameter.
+
+The `-1` in the model formula instructs `glm()` to fit without an intercept. Doing this will allow us to recover parameter estimates similar to those in the monograph.
+
+
+```{python}
+glm_fit1 = smf.glm('incremental~ -1 + acc_year_factor + dev_year_factor',
+                   data = msdata,
+                   family = sm.families.Poisson() ).fit(scale='X2')
+print(glm_fit1.summary())
+
+```
+
+
+
+### Loss reserve
+
+Now we'll have a look at the loss reserve. If you've done the chain ladder calculations, you should find this gives the same answer.
+
+Before we get there, we'll write a function to produce a data set from a vectors of `acc_year` and `dev_year` variables - this will be useful later on as well.
+
+The function below takes in numpy 1-d arrays of acc and dev and the categorisation we created above and produces a pandas dataframe with the various covariates that we have created so far.
+
+
+```{python}
+
+# Write a function to create part of a triangle
+    
+def CreateData(acc, dev, cat_type):
+    '''
+    Creates a data set to apply predict function to
+
+    Parameters
+    -------------------------
+    acc: np 1-d array of acc values
+    dev: np 1-d array of dev values
+    It is possible for one of these to be length 1 and this gets repeated
+
+    Returns
+    -------------------------
+    df with all the various terms that we need:
+      acc_year
+      dev_year
+      acc_year_factor
+      dev_year_factor
+      cal_year
+    
+    '''
+    
+    if acc.size == dev.size:
+        df = pd.DataFrame({'acc_year': acc, 'dev_year': dev})
+    elif acc.size == 1:
+        df = pd.DataFrame({'acc_year': np.repeat(acc, dev.size), 'dev_year': dev})
+    elif dev.size == 1:
+        df = pd.DataFrame({'acc_year': acc, 'dev_year': np.repeat(dev, acc.size)})
+    else:
+        print("Length of acc and dev must be equal or one must contain one element only")
+        return
+
+    # add the other variables and fix types
+    df['cal_year'] = df['acc_year'] + df['dev_year'] - 1
+    df['acc_year_factor'] = df['acc_year'].astype(cat_type)
+    df['dev_year_factor'] = df['dev_year'].astype(cat_type)
+    
+    df= df.astype(dtype={'acc_year': int,
+                         'dev_year': int,
+                         'cal_year': int
+                                   })
+    
+    return df
+
+
+```
+
+
+We now use this function and give it:
+
+* An accident array that repeats the numbers 1-10 10 times each
+* A development array that repeats the sequence 1-10 10 times
+* Our previously defined `cat_type`
+
+This outputs the full reserving data set (upper and lower triangles) in long form.
+
+We then subset this to keep only the future (lower triangle) data and reindex (number the rows). Finally we create a column that holds the fitted values from our first model.
+
+
+```{python}
+
+fulltr = CreateData(acc = np.repeat(np.arange(1,11), 10), 
+                    dev = np.tile(np.arange(1,11), 10),
+                    cat_type = cat_type)
+
+# extract lower tri - make a deep copy so it exists independently of 
+# fulltr rather than being a slice
+
+futdata = fulltr[fulltr['cal_year']>10].copy(deep=True)
+
+# reindex this
+futdata.index = np.arange(0, 45, dtype=int)
+
+
+futdata['fitted1'] = glm_fit1.predict(futdata)
+
+print(futdata.head())
+
+
+```
+
+
+Now we can look at the OCL by accident year and in total.
+
+```{python}
+
+# now get ocl by accident year
+ocl_year = futdata.groupby(by="acc_year").sum()
+print(ocl_year['fitted1'])
+
+
+```
+
+
+```{python}
+
+ocl_total = ocl_year['fitted1'].sum()
+print(ocl_total)
+
+
+```
+
+
+### Model diagnostics
+
+
+#### Calculations
+
+So far, we've fitted a model and have calculated the loss reserve.
+We can do all this with the chain ladder algorithm.
+Now we start looking at some of the extras that using a GLM gives us - for a start the statistical model structure means that we can calculate residuals with known properties, assuming the assumptions underlying the model are valid. 
+
+If the model assumptions are satisfied by the data, then the residuals should not have any remaining structure. 
+Plots of residuals can therefore be useful to detect violations of model assumptions.
+Note that we need to be careful to use the right types of residuals - in many cases we want to use standardised deviance residuals:
+
+* Deviance residuals because the more recognisable Pearson residuals (based on actual - fitted) are difficult to interpret for non-normal models.
+* Standardised because the raw residuals are on different scales depending on the scale of the underlying values.
+
+Some more details may be found in Chapter 6 of the monograph and also in Chapter 5 of [A Practitioner's Introduction to Stochastic Reserving](http://mages.github.io/PSRWP/IFoA_PSRWP-PDF.pdf).
+
+Here we look at the following:
+
+* Residual Scatterplots
+   + by linear predictor
+   + by accident, development and calendar years
+   + if the model assumptions are satisfied then the residuals should look homogeneous (or in layperson's language, like a random cloud), centred around zero)
+   
+* Heat map of actual vs fitted laid out in triangular form
+   + In this we get the actual/fitted ratio in each (acc, dev) cell (subject to lower and upper bounds of [0.5, 2]) and then plot the colour-coded triangle of the actual/fitted values
+   + heat maps are helpful to check for model fit and may help to identify missing interactions.
+
+
+We have to prepare the data by adding the fitted values and residuals. 
+
+* Because this model has a lot of parameters, there are two observations where the fitted is exactly equal to the actual -- (acc_year=1, dev_year=10) and (acc_year=10, dev_year=1). This is because these observations have a unique parameter.
+
+* **statsmodels** returns unstandardised deviance residuals, so we've included a function to calculate the standardised versions.
+
+* The deviance calculations below return `nan` (not a number) and `inf` for these points, but the residual should really be 0 so this adjustment is made manually. 
+
+* Also add actual/fitted ratios and the log of these (restricted to the range [log(0.5), log(2)]) - these will be used for a heatmap later. 
+  + The restricted range is used to generate easier to read shadings in the heat-map, while the conversion to log means that the shading scales will be similar intensity for $x$% and $1/x$ % 
+
+
+
+First, here's a function to calculate standardised deviance residuals.
+
+```{python}
+
+# Write a function to calculate std deviance residuals
+# statsmodels just gives deviance residuals, but we want standardised.
+# For definitions of these residuals consult (e.g) http://documentation.sas.com/doc/en/pgmsascdc/9.4_3.4/statug/statug_genmod_details25.htm
+#
+# to calculate standardised deviance residuals:
+#  - resid_deviance from statsmodels = sqrt(di) sign(y-mu)
+#  - std_resid_deviance = sqrt(di) sign(y-mu) / sqrt(phi (1-hat matrix))
+
+def StdDevResids(df, glm_obj, resid_colname = 'std_dev_resid'):
+    '''
+    Calculates the standardised deviance residuals.
+
+    Parameters
+    -------------------------
+    df: Pandas dataframe to which we add the residuals - should have dimensions of training/model data
+    glm_obj: Statsmodel glm object containing results of fit
+    resid_colname = name of residual column name
+
+    Returns
+    -------------------------
+    df updated with std resids column, called resid_colname
+    
+    resid_deviance = sqrt(di) sign(y-mu) - stored in glm_obj
+    std_resid_deviance = sqrt(di) sign(y-mu) / sqrt(phi (1-hat matrix)) - calculated
+    For definitions of these residuals consult http://documentation.sas.com/doc/en/pgmsascdc/9.4_3.4/statug/statug_genmod_details25.htm
+
+    
+    '''
+    
+    # calculate residuals
+    df[resid_colname] = glm_obj.resid_deviance / (np.sqrt(glm_obj.scale * (1 - glm_obj.get_hat_matrix_diag())))
+    
+    # when actual=fitted can get nans and infs in results so replace these with zero
+    df[resid_colname].replace(np.nan,0, inplace = True)
+    df[resid_colname].replace(np.inf,0, inplace = True)
+    
+    return(df)
+
+
+```
+
+
+
+Now calculate the residuals, and add fitted values and the AvsF values as well.
+
+There will be a warning message from the residual calculation function - this relates to the cells where actual == fitted and can be ignored.
+
+
+```{python}
+msdata = StdDevResids(msdata, glm_fit1, 'residuals1')
+msdata['fitted1'] = glm_fit1.predict(msdata)
+msdata['linear_predictor1'] = glm_fit1.predict(msdata, linear=True)
+msdata['AvsF1'] = msdata['incremental'] / msdata['fitted1']
+msdata['AvsF_restricted1'] = np.log(np.maximum(0.5, np.minimum(2, msdata['AvsF1'])))
+
+msdata.head(10)
+
+```
+
+
+#### Plotting
+
+Now let's look at the residual scatterplots.
+In the linear predictor scatterplot, the points are colour coded by development year.
+
+
+```{python}
+
+fig, axs = plt.subplots(2, 2)
+plt.subplots_adjust(wspace=1, hspace=1)
+g=sns.scatterplot(x='linear_predictor1', y='residuals1',hue=msdata.dev_year, data=msdata, palette=sns.color_palette("deep"), ax=axs[0,1])
+g.set_title("Linear Predictor")
+g.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize = 6)
+sns.scatterplot(x='acc_year', y='residuals1', data=msdata,palette=sns.color_palette("deep"), ax=axs[0,0]).set_title("Accident Year")
+sns.scatterplot(x='dev_year', y='residuals1', data=msdata,palette=sns.color_palette("deep"), ax=axs[1,0]).set_title("Development Year")
+sns.scatterplot(x='cal_year', y='residuals1', data=msdata,palette=sns.color_palette("deep"), ax=axs[1,1]).set_title("Calendar Year")
+
+
+```
+
+These results are quite good - bear in mind there are only a small number of points so plots must be interpreted in relation to this. 
+In particular:
+
+* The residuals do not appear to fan out or fan in (once you take into account that later development years have small number of points)
+* They appear centred around 0
+
+
+Now construct and draw the heat map. Note that the colours are:
+
+* blue (A/F = 50%)
+* white (A/F = 100%)
+* red (A/F = 200%)
+
+with shading for in-between values
+
+
+
+```{python}
+
+fig, axs = plt.subplots(1)
+
+cmap = sns.diverging_palette(255,0,sep=16, as_cmap=True)  
+
+sns.heatmap(data = msdata.pivot('acc_year','dev_year','AvsF_restricted1'),
+            linewidths = .5, 
+            cmap = cmap, 
+            center=0,
+            cbar = False)
+
+
+```
+
+
+In a heat map for a reserving triangle, we look for a random scattering of red and blue points. 
+This plot looks quite good (though we'll revisit this shortly).
+
+
+
+## Refining the model
+
+We could stop here - and just use the results from this model, which match those produced by the chain ladder. 
+The diagnostics suggest that the model fits quite well.
+However, because this is a GLM, we have more options than just replicating the chain ladder.
+
+In particular, can we:
+
+* identify simplifications to the model to make it more parsimonious (i.e. reduce the number of parameters)?
+* identify any areas of poorer fit that may suggest missing model terms including interactions?
+
+
+### Simplifying the model
+
+First we consider if we can use a parametric shape for the accident and development year parameters.
+The end result should be something similar to the chain ladder approach but with far fewer parameters.
+
+
+#### Accident year
+
+First plot the accident year parameters. We could access the parameters directly and plot these, but an alternative way of doing this is to make a data set where we have all values of `acc_year` and a single value of `dev_year` - the base level which is a parameter estimate of 0 - and then get the linear predicted values for this. This latter method will be useful later when we refine the model so we'll use it here too.
+
+We therefore use the `CreateData()` function we wrote earlier to make a data set in suitable form and then add the linear predicted values to this.
+
+
+```{python}
+
+acc_fit = CreateData(acc = np.arange(1,11), dev=np.array(1), cat_type = cat_type)
+acc_fit['fitted1'] = glm_fit1.predict(acc_fit, linear = True)
+
+print(acc_fit)
+
+
+```
+
+
+
+
+```{python}
+
+sns.lineplot(x = 'acc_year', y = 'fitted1', marker = 'o', data=acc_fit)
+```
+
+
+Note that the shape of the accident parameters closely resembles that of a parabola.
+
+This suggests that we can replace the 10 accident year parameters by
+
+* the overall intercept
+* an `acc_year` term
+* an `acc_year` squared term (we'll need to add this to the dataframe)
+
+So refit the model on this basis:
+
+* Drop the -1 from the `glm_fit1` formula to allow the model to have an intercept
+* Replace the `acc_year_factor` term with the parabola terms.
+
+
+```{python}
+
+msdata["acc_year_2"] = np.power(msdata["acc_year"], 2)
+
+glm_fit2 = smf.glm('incremental ~ acc_year + acc_year_2 + dev_year_factor',
+                   data = msdata,
+                   family = sm.families.Poisson() ).fit(scale='X2')
+print(glm_fit2.summary())
+
+
+```
+
+
+Now let's compare the previous and current fit. We go back to the `acc_fit` dataframe and add the linear predicted values from the `glm_fit2` model (and hopefully it now becomes clearer why it can be convenient to use a data set with the `predict()` method rather than accessing parameter estimates directly.
+
+
+```{python}
+
+# Plot the values before and after
+
+# first add acc_year_2 to acc_fit
+acc_fit["acc_year_2"] = np.power(acc_fit["acc_year"], 2)
+
+# add glm_fit2 linpred
+acc_fit['fitted2'] = glm_fit2.predict(acc_fit, linear = True)
+
+print(acc_fit)
+
+```
+
+
+
+```{python}
+
+sns.lineplot(x = 'acc_year', 
+             y = 'value', 
+             hue = 'variable',
+             marker = 'o',
+             data=pd.melt(acc_fit[['acc_year', 'fitted1', 'fitted2']], 'acc_year'))
+
+
+```
+
+
+This looks very good - the fit is very similar, but we have 7 fewer parameters.
+
+
+#### Development year
+
+Now we do the same thing for development year - we build a dataset with all `dev_year` levels and `acc_year` set the the same value (I've chosen 1) and then we calculate the linear predicted values and plot these.
+
+
+```{python}
+dev_fit = CreateData(acc = np.array(1), dev=np.arange(1,11), cat_type = cat_type)
+dev_fit["acc_year_2"] = np.power(dev_fit["acc_year"] ,2)
+dev_fit['fitted2'] = glm_fit2.predict(dev_fit, linear = True)
+
+sns.lineplot(x = 'dev_year', y = 'fitted2', marker = 'o', data=dev_fit)
+
+```
+
+Looking at this plot, it appears that a straight line would fit quite well. However, this fit would be improved by allowing the straight line to bend (have a knot) at dev_year = 7. So let's try this below.
+
+Note we actually fit `dev_year - 1` rather than `dev_year`. This means that the parameter estimate at `dev_year` = 1 is 0, just as it is in the `glm_fit2` model.
+
+
+
+```{python}
+
+msdata['dev_year_m1'] = msdata["dev_year"] - 1
+msdata['dev_year_ge_7'] = np.maximum(msdata["dev_year"] - 7.5, 0)
+
+glm_fit3 = smf.glm('incremental ~ acc_year + acc_year_2 + dev_year_m1 + dev_year_ge_7',
+                   data = msdata,
+                   family = sm.families.Poisson() ).fit(scale='X2')
+print(glm_fit3.summary())
+
+
+```
+
+Assuming the fit is satisfactory, our original model with 19 parameters has now been simplified to 5 parameters - much more parsimonious and robust.
+
+Let's check the fit by dev_year to see.
+
+
+
+```{python}
+# check fit by dev_year
+
+dev_fit['dev_year_m1'] = dev_fit["dev_year"] - 1
+dev_fit['dev_year_ge_7'] = np.maximum(dev_fit["dev_year"] - 7.5, 0)
+
+dev_fit['fitted3'] = glm_fit3.predict(dev_fit, linear = True)
+
+sns.lineplot(x = 'dev_year', 
+             y = 'value', 
+             hue = 'variable',
+             marker = 'o',
+             data=pd.melt(dev_fit[['dev_year', 'fitted2', 'fitted3']], 'dev_year'))
+
+```
+
+This looks good. However `dev_year` = 2 is a bit underfit in the latest model, so we can add something to improve this fit (a term at `dev_year`=2). Refit and replot.
+
+
+
+```{python}
+
+# add dq_eq_2 term
+
+msdata['dev_year_eq_2'] = 1 * (msdata["dev_year"] == 2)
+
+glm_fit4 = smf.glm('incremental ~ acc_year + acc_year_2 + dev_year_m1 + dev_year_ge_7 + dev_year_eq_2',
+                   data = msdata,
+                   family = sm.families.Poisson() ).fit(scale='X2')
+print(glm_fit4.summary())
+
+```
+
+
+
+```{python}
+
+# check fit by dev_year
+
+dev_fit['dev_year_eq_2'] = 1 * (dev_fit["dev_year"] == 2)
+
+dev_fit['fitted4'] = glm_fit4.predict(dev_fit, linear = True)
+
+sns.lineplot(x = 'dev_year', 
+             y = 'value', 
+             hue = 'variable',
+             marker = 'o',
+             data=pd.melt(dev_fit[['dev_year', 'fitted2', 'fitted3', 'fitted4']], 'dev_year'))
+
+```
+
+
+Looks good! Fitting `dev_year`=2 better has also improved the tail fitting (`dev_year`>7).
+
+
+### Identifying missing structure
+
+The second part of the model refining process involves checking for missing structure.
+
+Let's have a better look at the heat map, as it stands after the model simplification process.
+
+
+
+```{python}
+
+# look at heat map again - remember log scale
+
+msdata['fitted4'] = glm_fit4.predict(msdata)
+msdata['AvsF4'] = msdata['incremental'] / msdata['fitted4']
+msdata['AvsF_restricted4'] = np.log(np.maximum(0.5, np.minimum(2, msdata['AvsF4'])))
+
+fig, axs = plt.subplots(1)
+
+sns.heatmap(data = msdata.pivot('acc_year', 'dev_year', 'AvsF_restricted4'),
+            linewidths = .5, 
+            cmap = cmap, 
+            center=0,
+            cbar=False)
+
+```
+
+Let's refer to the annotated version of this plot from the previous version of this article in R. Note that the heatmap colours are a little different, but the underlying values are the same.
+
+![annotated heat map](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-05-glms/index_files/figure-html/unnamed-chunk-21-1.png)
+
+
+
+We see:
+
+* development year 1, a distinct area of blue in the earlier accident years (A < F), followed by red (A > F)
+* development year 2, a distinct area of red in the earlier accident years (A > F), followed by blue (A < F)
+* development year 3, a possible progression from red to blue with increasing accident year (F increasing relative to A)
+* development year 4, nearly all red (A > F)
+
+This suggests the payment pattern has altered and can be accommodated by (mostly) interaction terms within the GLM. Consider adding the following terms:
+
+* (development year = 1) * (accident year is between 1 and 6)
+* (development year = 2) * (accident year is between 1 and 6)
+* (development year = 3) * (accident year linear trend)
+* (development year = 4) 
+
+
+So, let's refit the model with terms to capture these and have a look at the heat map again
+
+
+
+```{python}
+# fit model with interactions
+msdata['dev_year_eq_1'] = 1 * (msdata["dev_year"] == 1)
+msdata['dev_year_eq_3'] = 1 * (msdata["dev_year"] == 3)
+msdata['dev_year_eq_4'] = 1 * (msdata["dev_year"] == 4)
+msdata['acc_year_1_6']  = 1 * (msdata['acc_year'] >= 1)*(msdata['acc_year'] <= 6)
+
+formula4 = 'incremental ~ acc_year + acc_year_2 + dev_year_m1 + dev_year_ge_7 + dev_year_eq_2'  # previous model
+formula5 = formula4 + ' + dev_year_eq_4 + dev_year_eq_1:acc_year_1_6 +  dev_year_eq_2:acc_year_1_6 + dev_year_eq_3:acc_year'
+
+
+glm_fit5 = smf.glm(formula5,
+                   data = msdata,
+                   family = sm.families.Poisson() ).fit(scale='X2')
+print(glm_fit5.summary())
+
+```
+
+
+This model should match that displayed in Table 7-5 of the monograph - and indeed it does (some very minor differences in parameter values - the model in the monograph was fitted in SAS).
+
+Look at the updated heat map again - has the model resolved the identified issues?
+
+
+
+```{python}
+
+msdata['fitted5'] = glm_fit5.predict(msdata)
+msdata['AvsF5'] = msdata['incremental'] / msdata['fitted5']
+msdata['AvsF_restricted5'] = np.log(np.maximum(0.5, np.minimum(2, msdata['AvsF5'])))
+ 
+
+fig, axs = plt.subplots(1)
+
+
+
+sns.heatmap(data = msdata.pivot('acc_year', 'dev_year', 'AvsF_restricted5'),
+            linewidths = .5, 
+            cmap = cmap,
+            center=0,
+            cbar=False)
+
+```
+
+
+Here's the annotated R plot which helps show the impact of the interactions
+
+![updated annotated heat map](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-05-glms/index_files/figure-html/unnamed-chunk-23-1.png)
+
+This looks much better.
+
+We should also look at the residual plots again
+
+
+
+```{python}
+
+# look at residual plots again
+
+msdata = StdDevResids(msdata, glm_fit5, 'residuals5')
+msdata['linear_predictor5'] = glm_fit5.predict(msdata, linear = True)
+
+fig, axs = plt.subplots(2, 2)
+plt.subplots_adjust(wspace=1, hspace=1)
+g=sns.scatterplot(x='linear_predictor5', y='residuals5',hue=msdata.dev_year, data=msdata, palette=sns.color_palette("deep"), ax=axs[0,1])
+g.set_title("Linear Predictor")
+g.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize = 6)
+sns.scatterplot(x='acc_year', y='residuals5', data=msdata,palette=sns.color_palette("deep"), ax=axs[0,0]).set_title("Accident Year")
+sns.scatterplot(x='dev_year', y='residuals5', data=msdata,palette=sns.color_palette("deep"), ax=axs[1,0]).set_title("Development Year")
+sns.scatterplot(x='cal_year', y='residuals5', data=msdata,palette=sns.color_palette("deep"), ax=axs[1,1]).set_title("Calendar Year")
+
+
+```
+
+
+These residuals do look better than those from the chain ladder model. 
+
+
+### Loss reserve
+
+Now that we have a model, let's produce the estimate of the outstanding claims by accident year and in total.
+
+* Take the lower triangle data [futdata] created above
+* Add on the new variates we created
+* Score the model on this data
+* Summarise the results
+
+
+
+
+```{python}
+
+# add all the new terms to futdata
+futdata['acc_year_2'] = np.power(futdata['acc_year'], 2)
+futdata['dev_year_m1'] = futdata["dev_year"] - 1
+futdata['dev_year_ge_7'] = np.maximum(futdata['dev_year'] - 7.5, 0)
+futdata['dev_year_eq_2'] = 1*(futdata['dev_year'] == 2)
+futdata['dev_year_eq_1'] = 1*(futdata['dev_year'] == 1)
+futdata['dev_year_eq_3'] = 1*(futdata['dev_year'] == 3)
+futdata['dev_year_eq_4'] = 1*(futdata['dev_year'] == 4)
+futdata['acc_year_1_6']  = 1*(futdata['acc_year'] >= 1)*(futdata['acc_year'] <= 6)
+
+futdata['fitted5'] = glm_fit5.predict(futdata)
+
+print(futdata.head(6))
+
+```
+
+
+**Reserves by accident year**
+
+```{python}
+
+ocl_year = futdata.groupby(by='acc_year').sum()
+print(ocl_year['fitted5'])
+
+```
+
+
+**Total reserves**
+
+```{python}
+
+ocl_total = ocl_year['fitted5'].sum()
+print(ocl_total)
+
+```
+
+
+## Reviewing this example
+
+Looking back over this example, what we have done is started with a chain ladder model and then shown how we can use a GLM to fit a more parsimonious model (i.e. fewer parameters).
+It may then be possible to reconcile the shape of the parametric fit by accident year to underlying experience in the book - here we saw higher payments in the middle accident years. Is this due to higher claims experience or higher premium volumes? Does this give us an insight that allows us to better extrapolate into the future when setting reserves?
+
+We have also used model diagnostics to identify areas of misfit and then used GLM interactions to capture these changes. 
+
+<br>
+
+## Practical use of GLMs in traditional reserving
+
+### Modelling
+
+The ideas in this simple example extend to more complex traditional scenarios. By traditional I mean that the data you have available to you are classified by accident (or underwriting), development and calendar periods only. 
+
+First decide what you are going to model. Here we had a single model of incremental payments. However you could fit a *Payments Per Claim Finalised (PPCF)* model which consists of 3 submodels - numbers of claims incurred by accident period, number of claims finalised by (accident, development period) and payments per claim finalised by (accident, development period). Each of these could then be fitted by a GLM.
+
+For whatever you're modelling, you then pick the two triangle directions that you think are most critical for that experience. 
+You can't include all 3 at the start since they are correlated. 
+
+So, for PPCF submodels:
+
+* for number of claims incurred models, accident and development period effects are likely to be where you start.
+* numbers of claims finalised will usually depend on development period (type of claim) and calendar period (to take account of changes in claim settlement processes)
+* for claim size models, you will probably want development and calendar period effects. For these models you could use operational time instead of development period to avoid changes in the timing of claims finalisations impacting your model.
+
+Then fit the models by starting with the modelled effects as factors and use methods such as those outlined above to reduce the number of parameters by using parametric shapes.
+Look for missing structure and consider adding interactions or (carefully) adding limited functions of the third triangular direction.
+Take advantage of GLM tools to refine your model. Use what you know about the portfolio to inform your model - if you know that there was a period of rapid claims inflation, then include that in your model.
+
+
+### Setting reserves
+
+It is possible to overlay judgement onto a GLM's predictions. 
+At the end of the day, the predictions are just based on a mathematical formula.
+So, taking claims inflation as an example, if you've been seeing 5% p.a. over the last 3 years, but you think this is going to moderate going forward, then you can adjust the projections by removing the 5% p.a. rate into the future and replacing it with, say, 2% p.a.
+Once you get familiar with using GLMs, you might find it easier to incorporate judgement - the GLM can capture more granularity about past experience which in turn may make it easier to work out how things might change in future and how to numerically include these changes.
+
+
+### Additional References
+
+The references below have further examples of fitting GLMs in this way, and show how to capture quite complex experience.
+Although both use individual data, the methodology can be used in a similar manner for aggregate data.
+
+* [Loss Reserving with GLMs: A Case Study](https://www.casact.org/sites/default/files/2021-02/pubs_dpp_dpp04_04dpp327.pdf)
+* [Individual Claim modelling of CTP data](https://actuaries.asn.au/Library/6.a_ACS07_paper_McGuire_Individual%20claim%20modellingof%20CTP%20data.pdf)
+* [Predictive modeling applications in actuarial science, Frees and Derig, 2004](https://instruction.bus.wisc.edu/jfrees/jfreesbooks/PredictiveModelingVol1/index.htm) - in particular see Chapter 18 in Volume 1 and Chapter 3 in Volume 2.
+
+Please feel free to add references to other useful material in the comments.
+
+
+
+
+
+
+```{r, include=TRUE, echo=TRUE, collapse = TRUE}
+print("all done")
+
+print("retain_obs is")
+print(retain_obs)
+
+print("in env")
+print(ls())
+
+print("to delete")
+print(setdiff(ls(), retain_obs))
+
+```
+
+
+
+```{r, include = FALSE, message=FALSE, warning=FALSE}
+
+
+del_obs <- setdiff(ls(), retain_obs)
+
+rm(list=del_obs)
+
+
+```

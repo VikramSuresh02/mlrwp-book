@@ -1,0 +1,70 @@
+# Getting to grips with GLM, GAM and XGBoost {#f-intro_glm_gam_xgboost}
+
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-intro_glm_gam_xgboost/) was written by [Tom Saliba](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/tsaliba/) and originally published on 5 July 2021.*
+
+
+
+## Introduction
+
+Congratulations! You’ve just completed your introductory course in data science and analytics in R, and you’re ready to start enriching your day-to-day actuarial work with new and exciting models.
+
+But where to get started? This blog post aims to highlight a useful video resource for beginners looking to gain some insights into the realities of applying machine learning models in practice. 
+
+If you’d like to try out some alternatives to GLMs within R, in a general insurance setting, I’d recommend [Insurance Risk Pricing with GLM, GAM and XGBoost](https://www.youtube.com/watch?v=sOyMLB1SsFk&t=0s) by Matthew Evans and Callum Hughes.
+
+
+### Is it relevant for reserving actuaries?
+
+Before going any further, we should talk about why a webinar on Risk Pricing is relevant for reserving actuaries.
+
+Having worked across pricing and reserving in my career, I’ve found the leap from traditional models to machine learning approaches to be easier on pricing problems than reserving tasks. Even if your end goal is to enhance your reserving models, this video is still worth a watch. It will act as a useful stepping stone to more advanced presentations on applications of machine learning approaches to triangular data. 
+
+
+### What does the material cover?
+
+This 30 minute video will give you an overview of three models:
+
+-   Generalized Linear Models 
+-   Generalized Additive Models
+-   XGBoost
+
+Rather than going into lots of detail on a particular model, it gives an overview, as well as some key pros and cons to consider, and then gets straight into fitting it.
+
+It will then take you through the application of these models to some simulated data in R, and an example of how to compare the results.
+
+The level of detail in this video, and the complexity of the accompanying code, is at a great level for anyone who has some awareness of these models, and has some experience of coding in R, but wouldn’t consider themselves an expert.
+
+
+### Who would find this most useful?
+
+If you’ve completed a course in R, but haven’t built up a large amount of practical experience using it, then this code and video will be a good way to refresh your knowledge. 
+
+If you have worked with GLMs before, then putting 30 minutes aside to watch the video in isolation would be a good way to get a basic overview of XGBoost and GAMs, as well as an example of model tuning using the Caret package. 
+
+The code itself is also well annotated, and at just over 300 lines, it won’t take long to work through. 
+
+
+### What next?
+
+Having worked through the code and watched the video, a great next step into applying these techniques can be found in the following articles or pages:
+
+-   [Resources on the Foundations workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/foundations/)
+-   Reserving using GLMs in [Chapter -@sec-glms-r] 
+-   [ML modelling on triangles - a worked example](/mlr-blog/post/f-mlr3example/)
+
+## Summary
+
+This video and code are a great way to dip your toe into using machine learning techniques within R, in a short period of time. It should set you up well for more complex code and presentations, in either a pricing or reserving setting. 
+
+
+## Notes on the video and code
+
+Authors: Matthew Evans, Callum Hughes
+
+Video: [Insurance Risk Pricing with GLM, GAM and XGBoost - YouTube](https://www.youtube.com/watch?v=sOyMLB1SsFk&t=0s)
+
+Code: [xgboost-virtual-data-science-seminar/xgb presentation (005).R at master · mdevans21/xgboost-virtual-data-science-seminar · GitHub](https://github.com/mdevans21/xgboost-virtual-data-science-seminar/blob/master/xgb%20presentation%20(005).R)
+
+
+
+
