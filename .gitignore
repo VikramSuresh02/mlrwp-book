@@ -12,9 +12,14 @@
 !README.md
 #!*.css
 #!*.scss
-!Foundations/Images/
+!Foundations/Images/*
+!Data/Images/*
+!Literature/Images/*
+!Practical/Images/*
 #!wordmark.png
 
+# Don't ignore docs directory since this is how we publish the book - ** needed to match all files
+!docs/**
 
 # ignore some standard R stuff located in folders
 # copied from default R template and commented out what we don't seem to need
