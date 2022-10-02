@@ -1,0 +1,35 @@
+# Probabilistic Forecasting with Neural Networks Applied to Loss Reserving {#sec-al-mudafer}
+
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/l-nn-al-mudafer/) was written by [Sarah MacDonnell](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/smacdonnell/) and originally published on 30 September 2021.*
+
+
+## Muhammed Taher Al-Mudafer's thesis, November 2020
+
+This [thesis](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/pdf/Al-Mudafer_Honours-thesis.pdf) explores emerging Neural Network (NN) techniques that:
+
+* enable a distribution of results to be produced rather than just a central estimate
+* improve explainability and interpretability (in that you start with a distribution that you understand).
+
+It is a very accessible read and I would recommend it to machine learning beginners as well as those following the latest developments in applying neural networks to GI reserving.
+
+You may want to dip into sections rather than read the whole document from cover to cover. The very readable and comprehensive literature review takes you through the development in the literature of applying NNs to reserving. It introduces what Mixture Density Networks (MDNs) and ResNets are in a way that a (relative) layperson would understand.
+
+The section on data provides good detail on [SynthETIC](https://cran.r-project.org/web/packages/SynthETIC/index.html), the simulator used to generate the data triangles (four different scenarios of claim triangles were used; from simple short tail claims, to an inflation shock, to those with high volatility). The background information on the claims simulation engine and the explanation of the derivation of the data triangles alone will likely be of use to many. We discussed SynthETIC in an earlier Chapter (@sec-synthetic).
+
+
+The thesis also poses some interesting questions:
+
+* It notes that there is not currently a consistent framework in the literature for testing and training the data and goes on to propose a system that takes into account the time series or sequential nature of claim development triangles and discusses the Rolling Origin Validation Method.
+
+* It highlights the importance of also having a clear methodology for selecting hyper-parameters, as NNs are highly dependent on the parameters chosen, and sets out a proposal for a systematic hyper-parameter fine tuning algorithm. 
+
+I would highly recommend this accessible thesis that is a good source of background information whilst also pushing forward thinking on using NNs in reserving. It is encouraging to see the continuing stream of papers in this area.
+
+
+## Want to read more? {.unnumbered}
+
+* The thesis: [Probabilistic Forecasting with Neural Networks Applied to Loss Reserving](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/pdf/Al-Mudafer_Honours-thesis.pdf)
+* The research paper based on the thesis: [Stochastic loss reserving with mixture density neural networks](https://arxiv.org/abs/2108.07924)
+
+
+

@@ -1,5 +1,5 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+This book gathers together material produced by the MLRWP.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+To learn more visit <https://institute-and-faculty-of-actuaries.github.io/mlr-blog/>.

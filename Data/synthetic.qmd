@@ -1,0 +1,18 @@
+# synthetic {#sec-synthetic}
+
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/synthetic/) was written by [Greg Taylor](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gtaylor/) and originally published on 8 February 2021.*
+
+*Note that since the time of writing, synthetic has been replaced by Splice. We will update the chapter for this in the near future.*
+
+Recent years have seen rapid increase in the application of machine learning (ML) to insurance loss reserving.
+These ML methods yield most value when applied to large data sets, such as individual claim, even transactional, data sets, whose volume implies that a naked-eye view of the data features is impossible.
+
+Unfortunately, such large data sets are in short supply in the actuarial literature, and so there is a shortfall in the material required to test ML methods.
+SynthETIC fills this gap and offers a starting point for the testing of proposed ML methods by providing synthetic data that reflects complex features commonly observed in real data.
+
+The default version of SynthETIC is parameterized to loosely resemble the experience of a specific (but anonymous) Auto Bodily Injury portfolio (“reference portfolio”). However, the general structure is suitable for most lines of business, with some possible amendment on the choice of parameters and/or the structure of the sampling distribution(s). In short, SynthETIC gives the user full control of the mechanics of the evolution of an individual claim, hence the flexibility to create claims data of any level of complexity.
+
+Indeed, the user may generate a collection of data sets that provide a spectrum of complexity, and the collection may be used to present a model under test with a steadily increasing challenge.
+
+Further details on the package, including some demonstration code can be found [here](https://blog.kasa.ai/posts/synthetic).
+

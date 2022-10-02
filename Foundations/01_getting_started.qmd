@@ -1,4 +1,4 @@
-# Getting started {#f-getting-started}
+# Getting started {#sec-getting-started}
 
 
 *This article was originally posted [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/intro-to-foundations-blog/) and authored by Nigel Carpenter and Grainne McGuire*

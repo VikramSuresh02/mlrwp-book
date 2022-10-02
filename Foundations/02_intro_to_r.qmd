@@ -1,4 +1,4 @@
-# Introduction to R {#f-intro-r}
+# Introduction to R {#sec-intro-r}
 
 *This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/intro-to-r/) was written by [Wan Hsien Heah](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/wheah/) and originally published on 21 Sep 2020*
 

@@ -1,16 +1,8 @@
----
-title: "Getting to grips with GLM, GAM and XGBoost"
-date: '2021-07-05T17:00:00Z'
-slug: f-intro_glm_gam_xgboost
-tags:
-- foundations
-- R
-- gam
-- glm
-- xgboost
-authors: 
-- tsaliba
----
+# Getting to grips with GLM, GAM and XGBoost {#f-intro_glm_gam_xgboost}
+
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-intro_glm_gam_xgboost/) was written by [Tom Saliba](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/tsaliba/) and originally published on 5 July 2021.*
+
+
 
 ## Introduction
 
@@ -21,14 +13,14 @@ But where to get started? This blog post aims to highlight a useful video resour
 If you’d like to try out some alternatives to GLMs within R, in a general insurance setting, I’d recommend [Insurance Risk Pricing with GLM, GAM and XGBoost](https://www.youtube.com/watch?v=sOyMLB1SsFk&t=0s) by Matthew Evans and Callum Hughes.
 
 
-## Is it relevant for reserving actuaries?
+### Is it relevant for reserving actuaries?
 
 Before going any further, we should talk about why a webinar on Risk Pricing is relevant for reserving actuaries.
 
 Having worked across pricing and reserving in my career, I’ve found the leap from traditional models to machine learning approaches to be easier on pricing problems than reserving tasks. Even if your end goal is to enhance your reserving models, this video is still worth a watch. It will act as a useful stepping stone to more advanced presentations on applications of machine learning approaches to triangular data. 
 
 
-## What does the material cover?
+### What does the material cover?
 
 This 30 minute video will give you an overview of three models:
 
@@ -43,7 +35,7 @@ It will then take you through the application of these models to some simulated 
 The level of detail in this video, and the complexity of the accompanying code, is at a great level for anyone who has some awareness of these models, and has some experience of coding in R, but wouldn’t consider themselves an expert.
 
 
-## Who would find this most useful?
+### Who would find this most useful?
 
 If you’ve completed a course in R, but haven’t built up a large amount of practical experience using it, then this code and video will be a good way to refresh your knowledge. 
 
@@ -52,16 +44,15 @@ If you have worked with GLMs before, then putting 30 minutes aside to watch the 
 The code itself is also well annotated, and at just over 300 lines, it won’t take long to work through. 
 
 
-## What next?
+### What next?
 
 Having worked through the code and watched the video, a great next step into applying these techniques can be found in the following articles or pages:
 
--   [Resources on the Foundations workstream page](/mlr-blog/project/foundations/)
--   [Reserving using GLMs](/mlr-blog/post/glms/)
+-   [Resources on the Foundations workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/foundations/)
+-   Reserving using GLMs in [Chapter -@sec-glms-r] 
 -   [ML modelling on triangles - a worked example](/mlr-blog/post/f-mlr3example/)
 
-
-## Summary?
+## Summary
 
 This video and code are a great way to dip your toe into using machine learning techniques within R, in a short period of time. It should set you up well for more complex code and presentations, in either a pricing or reserving setting. 
 

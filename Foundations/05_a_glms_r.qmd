@@ -1,4 +1,4 @@
-# Reserving with GLMs in R {#f-glms}
+# Reserving with GLMs in R {#sec-glms-r}
 
 *This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/glms/) was written by [Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and originally published on 26 April 2021*
 

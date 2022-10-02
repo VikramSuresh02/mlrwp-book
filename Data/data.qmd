@@ -1,0 +1,7 @@
+# Data Workstream 
+
+# Introduction to the Data workstream {#sec-data}
+
+*tbc*
+
+Refer to our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/data/) for now

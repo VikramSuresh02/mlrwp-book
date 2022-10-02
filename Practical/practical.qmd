@@ -1,0 +1,7 @@
+# Practical Considerations Workstream 
+
+# Introduction to the Practical Considerations workstream {#sec-practical}
+
+*tbc*
+
+Refer to our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/practical_considerations/) for now

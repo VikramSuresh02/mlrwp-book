@@ -1,24 +1,12 @@
----
-title: "ML modelling on triangles - a worked example"
-date: "2021-05-30T21:00:00Z"
-slug: f-mlr3example
-authors: 
-  - gmcguire
-  - jpoon
-tags: 
-  - foundations
-  - lasso
-  - xgboost
-  - random forest
-  - mlr3
-  - R
+# ML modelling on triangles - a worked example
 
----
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-mlr3example/) was written by [Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and [Jacky Poon](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/jpoon/) and originally published on 5 May 2021.*
 
 
-# Introduction
 
-In this article we look at applying different machine learning (ML) models to a data set.
+## Introduction
+
+In this chapter we look at applying different machine learning (ML) models to a data set.
 Our goal is to illustrate a work flow for:
 
 -   setting up a data set for ML
@@ -29,23 +17,23 @@ Our goal is to illustrate a work flow for:
 A secondary goal is to demonstrate the utility of a multi-model machine learning framework which enables the user to easily "plug and play" different machine learning models within the same framework. We use the **mlr3** set of packages in R here - this and other similar packages in R (e.g. **caret** and **tidymodels**) and tools in **scikit-learn** in python may be useful in creating a smoother work flow.
 
 
-A [notebook version of this article](/mlr-blog/f_notebooks/ML modelling on triangles - a worked example.html) is also available which may be helpful if you want to experiment with this code. 
+A [notebook version of this article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/f_notebooks/ML modelling on triangles - a worked example.html) is also available which may be helpful if you want to experiment with this code. 
 
 
-## Who is this article aimed at?
+### Who is this article aimed at?
 
 This article is aimed at those who know a little about some of the standard machine learning models, but who may not have done much hands-on work with an analysis. It will also be useful for those who have done some experimentation, but maybe not on a reserving data set. Finally, it may also be of interest to R users who have never used a multi-model framework before and who would like to see how the **mlr3** ecosystem works.
 
 
 ## Pre-requisites to this article
 
-We've tried to make this article accessible to people new to ML, and to make this article stand-alone. Having some knowledge about basic machine learning techniques like decision trees, random forests and XGBoost (gradient boosting) will help. Furthermore, we also fit the Chainladder model as a GLM (sometimes referred to as a Stochastic Chainladder) and fit a particular type of LASSO model. We've included limited details on these models here - our previous blog posts have more details on these:
+We've tried to make this article accessible to people new to ML, and to make this article stand-alone. Having some knowledge about basic machine learning techniques like decision trees, random forests and XGBoost (gradient boosting) will help. Furthermore, we also fit the Chainladder model as a GLM (sometimes referred to as a Stochastic Chainladder) and fit a particular type of LASSO model. We've included limited details on these models here - our previous chapters have more details on these:
 
-* [Reserving with GLMs](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/glms/)
-* [Self-assembling claim reserving models using the LASSO](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-lasso/)
+* Reserving with GLMs - see  @sec-glms-r
+* Self-assembling claim reserving models using the LASSO - see @sec-lasso
 
 
-## The data set
+### The data set
 
 Our example deals with using ML to set reserves for a single aggregate 40x40 triangle. We've selected the data set because:
 
@@ -61,14 +49,14 @@ We use a simulated data set. There are several reasons for this:
 The data set used is simulated data set 3 from the paper [Self-assembling insurance claim models using regularized regression and machine learning](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3241906). This is a 40x40 triangle of incremental quarterly payments over 10 years. Variables on the data set are accident, development and calendar quarters only. A copy of the data set is available [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/csv/lasso_simdata3.csv).
 
 
-## Machine learning and aggregate triangles
+### Machine learning and aggregate triangles
 
 Typically, ML and big data go hand-in-hand. By big data we mean lots of observations and lots of features (covariates / independent variables / regressors). Aggregate triangles are small in both senses - small numbers of observations and limited features (often just the 3 time features of accident/underwriting period, development period and calendar period).
 
 This is not to say that it is invalid to use machine learning for aggregate triangles - many people have demonstrated good results from machine learning for such data - there are many papers on this topic. But it's also true that an experienced actuary using a Chainladder model (or other traditional) method, overlaid with judgement, will often get a similar answer to the best ML method, even for a complex triangle. However ML may be a more efficient way of getting to an answer. In the worked example below, we use a data set which deviates significantly from Chainladder assumptions. Therefore the unadjusted Chainladder projection is quite poor and would need a significant investment of time to yield a better model. In contrast, the better performing ML models we looked at have a better first estimate, so may not require as much intervention to produce a final estimate, thereby leading to a time-saving.
 
 
-## Don't rank the ML models used based on this example
+### Don't rank the ML models used based on this example
 
 The purpose of this article is to demonstrate a workflow for fitting ML models in R. While we've done some work to improve model fitting, there are a lot more things we would consider if we were looking for the best models (e.g. feature engineering, train/test splits, performance measures). So, although we do look at the relative performance of the different models at the end, you should not make any conclusions about the relative performance of the different ML methods based on this work.
 
@@ -78,13 +66,13 @@ We'll be discussing this point a bit further at the end of the article.
 *A priori*, given the form of the data (simulated using a regression style structure) and that the LASSO model we used is based on previous work which did aim to establish a framework to fit good models to triangular data using the LASSO, we expected that the LASSO model would perform the best and (spoiler alert!) it did.
 
 
-## mlr3 package
+### mlr3 package
 
 One problem with applying many different types of ML models is that they all generally have different input specifications for the data, and different output types. This can make it a bit tedious to try several models. 
 
 There are a number of ML aggregator or multi-model packages that do a lot of the data manipulation behind the scenes. These packages take in data in a specified form and allow users to call the different ML methods. They abstract away any data manipulation required to put the data into the form required by the method. The benefit of these is apparent - set up the data in the aggregator and then switch models in and out at will.
 
-One of our [previous articles](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/topten-r-packages/) covers multi-model packages.  
+One of our [previous chapters](#f-topten-r-packages) covers multi-model packages.  
 
 Some ML aggregators in R include
 
@@ -119,7 +107,7 @@ In our worked example below, we aim to explain each step clearly, so if you pref
 
 
 
-## ML methods used
+### ML methods used
 
 We've looked at the following methods:
 
@@ -138,7 +126,7 @@ An obvious omission from here are neural networks / deep learning models. We've 
 However, we are actively looking at using deep learning models and will be revisiting them in the near future.
 
 
-# Outline of the workflow
+## Outline of the workflow
 
 The workflow we have set up consists of the following:
 
@@ -153,7 +141,7 @@ The workflow we have set up consists of the following:
 We'll now work through each of the stages below.
 
 
-# Setup
+## Setup
 
 The first step is to load all the libraries required for this work (and install them first if needed).
 We've included details of our session which includes versions of the packages we used at the end of this article.
@@ -183,15 +171,11 @@ The code below checks for these packages and will give you a warning message if 
 ```{r}
 
 reqd_packages <- c("data.table",
+                   "DT",
                    "ggplot2",
                    "glmnet",
-                   "kableExtra",
-                   "mlr3",
+                   "mlr3verse",
                    "mlr3extralearners",
-                   "mlr3learners",
-                   "mlr3measures",
-                   "mlr3tuning",
-                   "paradox",
                    "patchwork",
                    "ranger",
                    "remotes",
@@ -214,16 +198,20 @@ message("Package checking complete\n")
 
 # To install mlr3extralearners (which is not on CRAN so must be installed on github)
 # 1. Ensure you have the remotes package installed
-# 2. install using
+# 2. if note using renv then install using
 #     remotes::install_github("mlr-org/mlr3extralearners")
 #
 # if this fails (e.g. if you are using renv to manage packages then it might), you may need to use
 # remotes::install_github("mlr-org/mlr3extralearners", INSTALL_opts = c("--no-multiarch") )
 # see https://github.com/rstudio/renv/issues/162
+#
+# If using renv, then use this:
+# renv::install("mlr-org/mlr3extralearners")
 
 
 
 ```
+
 
 
 Now that we've checked the required packages are there, we can get started with the example by attaching the libraries we require.
@@ -232,10 +220,7 @@ Now that we've checked the required packages are there, we can get started with 
 ```{r, warning=FALSE, message=FALSE, collapse=TRUE}
 
 # machine learning libraries
-library(mlr3)   # base mlr3 package
-library(mlr3learners)  # implements common learners
-library(mlr3tuning)    # tuning methodology
-library(paradox)   # used to create parameter sets for hyperparameter tuning
+library(mlr3verse)   # base mlr3 package
 library(mlr3extralearners) # needed for glms
 
 # data manipulation
@@ -247,7 +232,7 @@ library(patchwork) # easy way to combine ggplots
 library(rpart.plot)   # to draw decision trees created by rpart
 
 # making nice tables
-library(kableExtra)
+library(DT)
 
 # stop R from showing big numbers in scientific notation
 options("scipen"=99)  
@@ -273,13 +258,17 @@ violet <- "#8076cf"
 
 
 
-# Data preparation
+## Data preparation
 
 
 We're using a simulated data triangle with all values (past and future).
 
 
-```{r, echo=FALSE, message=FALSE}
+```{r}
+#| echo: false
+#| message: false
+
+
 tri <- rbind(data.table(x=c(0, 0, 10), y=c(0, 10, 10), group=c("train", "train", "train")),
              data.table(x=c(0, 10, 10), y=c(0, 10, 0), group=c("test", "test", "test")) )
 
@@ -307,18 +296,18 @@ This is a 40x40 triangle of payments:
 The first two effects are captured by a Chainladder model but the last two effects depart from Chainladder assumptions.
 
 
-## data.table package
+### data.table package
 
 We'll be using the **data.table** package for manipulating the data. There's an introduction to **data.table** on our [blog](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/datatable/) if you are unfamiliar with it.
 If you see `:=` in the R code, then that's **data.table** assignment.
-(Actually in the code chunks you may see an underscore under the `:=` - this is inserted by the formatting we are using to prepare the notebook for some reason, so please ignore the underscore).
 
 
-## Load the data
+### Load the data
 
 First, load in the data and have a look at it.
 
-```{r, collapse=TRUE}
+```{r}
+#| collapse: true
 
 dat <- fread("https://institute-and-faculty-of-actuaries.github.io/mlr-blog/csv/lasso_simdata3.csv")
 
@@ -391,7 +380,7 @@ tail(dat)
 
 
 
-## Create a mlr3 task
+### Create a mlr3 task
 
 Now create an **mlr3** [task](https://mlr3book.mlr-org.com/tasks.html) - making an object to hold data and set roles for the data.
 These tasks abstract away (i.e. do it for you) all the hard work in getting the data into the right form for each model (learner in **mlr3** parlance) - just specify what the target is and what the features are, and **mlr3** will take care of the rest. 
@@ -419,7 +408,8 @@ We need to ensure everything is correctly assigned:
 For the first, we'll use `row_roles` to ensure that future data is not used for model training.
 There are two types of `row_roles` - `use` and `validation`. Right now all rows are in `use`.
 
-```{r, collapse=TRUE}
+```{r}
+#| collapse: true
 
 # number of entries in use
 print(length(task$row_roles$use))
@@ -440,13 +430,14 @@ We can't edit row_roles directly, so use the method (`set_row_roles()`) to do th
 
 ```{r}
 
-task$set_row_roles(dat[train_ind==FALSE, row_id], roles="validation")
+task$set_row_roles(dat[train_ind==FALSE, row_id], roles="holdout")
 
 ```
 
 Check that the task has been updated correctly.
 
-```{r, collapse=TRUE}
+```{r}
+#| collapse: true
 
 # number of entries in use
 print(length(task$row_roles$use))
@@ -454,8 +445,8 @@ print(length(task$row_roles$use))
 # for brevity just print the end of the second accident period - row id 80 should be in validate
 print(task$row_roles$use[70:90])
 
-# number of entries in validation
-print(length(task$row_roles$validation))
+# number of entries in holdout
+print(length(task$row_roles$holdout))
 print(task$row_roles$validation[1:10])
 
 
@@ -469,7 +460,9 @@ Now we need to remove `row_id` and `train_ind` from the list of features:
 * we'll ignore `train_ind` (so it won't have any role)
 * we'll set `row_id` to be a name. This could be used in plots to label points if needed.
 
-```{r, collapse=TRUE}
+```{r}
+#| collapse: true
+
 # make row_id a name
 task$set_col_roles("row_id", roles="name")
 
@@ -484,7 +477,7 @@ task$col_roles
 ```
 
 
-# Tuning process for hyper-parameters
+## Tuning process for hyper-parameters
 
 Machine learning models have a number of hyper-parameters that control the model fit.
 Tweaking the hyper-parameters that control model fitting (e.g. for decision trees, the depth of the tree, or for random forests, the number of trees to average over) can have a significant impact on the quality of the fit. 
@@ -503,14 +496,15 @@ Note that we will be discussing validation options in a separate article.
 
 
 
-## Cross-validation
+### Cross-validation
 
 The simplest implementation of a train and test partition is a random one where each point in the data set is allocated to train and test at random.
 Typically, the train part might be around 70-80% of the data and the test part the remainder.
 
 
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 
 tri <- rbind(data.table(x=c(0, 0, 10), y=c(0, 10, 10), group=c("past", "past", "past")),
              data.table(x=c(0, 10, 10), y=c(0, 10, 0), group=c("future", "future", "future")) )
@@ -569,7 +563,8 @@ p3 <- p3 + annotate(geom="text", label="Test", x=6.5, y=7.5, size=6, colour="whi
 
 **Random test data set**
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 p3
 ```
 
@@ -587,7 +582,11 @@ A simplified representation of the process is given below.
 
 **5-fold cross validation**
 
-```{r, echo=FALSE, fig.height = 4, fig.align="center"}
+```{r}
+#| echo: false
+#| fig-height: 4
+#| fig-align: center
+
 # draw the graph
 
 p <- ggplot() 
@@ -621,7 +620,7 @@ Cross-validation provides an estimate of out-of-sample performance even though a
 It is often considered more robust due to its use of the full dataset for testing, but can be computationally expensive for larger datasets. Here we only have a small amount of data, so there is an advantage to using the full dataset, whilst the computational cost is manageable. 
 
 
-## Setting up cross-validation in mlr3
+### Setting up cross-validation in mlr3
 
 We can set up a cross-validation resampler in mlr3 that can then be applied to any model. As always, the [book](https://mlr3book.mlr-org.com/resampling.html) is a useful starting reference point.
 
@@ -645,7 +644,8 @@ crossval$instantiate(task)
 
 Below we show the allocation of points into test and train for each fold - the dark blue points are the test subset in each of the 6 folds.
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 
 # interaction x >= 17 && y >= 21
 
@@ -685,7 +685,10 @@ folds <- melt(xydat,
 ```
 
 
-```{r, fig.height=5, echo=FALSE}
+```{r}
+#| echo: false
+#| fig-height: 5
+
 
 ggplot(data=folds, aes(x=dev, y=acc, colour=value)) +
   facet_wrap(~variable, ncol=3)+
@@ -700,7 +703,7 @@ ggplot(data=folds, aes(x=dev, y=acc, colour=value)) +
 ```
 
 
-## Performance measure
+### Performance measure
 
 As well as the cross-validation process, we want to set up a performance measure to use.
 Here we will use RMSE (root mean square error).
@@ -717,7 +720,7 @@ measure <- msr("regr.rmse")
 ```
 
 
-## Searching hyper-parameter space
+### Searching hyper-parameter space
 
 Searching hyper-parameter space needs to be customised to each model, so we can't set up a common framework here.
 However, to control computations, it is useful to set a limit on the number of searches that can be performed in a tuning exercise.
@@ -740,7 +743,7 @@ evals_trm = trm("evals", n_evals = 25)
 
 
 
-# Fitting some ML models
+## Fitting some ML models
 
 
 Now it's time to fit and tune the following ML models using **mlr3**:
@@ -750,7 +753,7 @@ Now it's time to fit and tune the following ML models using **mlr3**:
 * XGBoost
 
 
-## Decision tree
+### Decision tree
 
 A decision tree is unlikely to be a very good model for this data, and tuning often doesn't help much.
 Nonetheless, it's a simple model, so it's useful to fit it to see what happens.
@@ -793,7 +796,7 @@ Let's try tuning the `cp` and `minsplit` parameters.
 
 
 
-### Tuning the decision tree
+#### Tuning the decision tree
 
 To set up the tuning we need to specify:
 
@@ -850,7 +853,10 @@ tuner <- tnr("grid_search", resolution = 5)
 
 Finally, we run the tuning on the `instance_rpart` space. 
 
-```{r, results="hide", message=FALSE}
+```{r}
+#| results: hide
+#| message: false
+
 # suppress log output for readability
 lgr::get_logger("bbotk")$set_threshold("warn")
 lgr::get_logger("mlr3")$set_threshold("warn")
@@ -892,7 +898,7 @@ This model is much more complicated than the original and looks overfitted - we'
 
 
 
-## Random forest fitting
+### Random forest fitting
 
 The **ranger** random forest package is implemented in **mlr3learners** (the regression version is `regr.ranger`).
 
@@ -911,7 +917,9 @@ Here, we'll try tuning number of trees (`num.trees`) and the minimum node size (
 We'll follow the same steps as for decision trees - set up a parameter space for searching, combine this with RMSE and cross-validation and then tune using grid search.
 
 
-```{r, results="hide", message=FALSE}
+```{r}
+#| results: hide
+#| message: false
 
 tune_ps_ranger <- ps(
   num.trees = p_int(lower = 100, upper = 900),
@@ -970,7 +978,7 @@ lrn_ranger_tuned$model
 
 
 
-## XGBoost
+### XGBoost
 
 Here are the XGBoost parameters.
 
@@ -980,10 +988,9 @@ Here are the XGBoost parameters.
 # lrn("regr.xgboost")$param_set
 
 # the code below just removes some of the columns for display purposes
+as.data.table(lrn("regr.xgboost")$param_set)[, .(id, class, default)]
 
-kable_styling(
-  kable(as.data.table(lrn("regr.xgboost")$param_set)[, .(id, class, default)]),
-  full_width = FALSE)
+
 
 ```
 
@@ -996,8 +1003,8 @@ Depending on your computer, this step takes a while to run (since our terminator
 
 
 
-```{r, collapse=TRUE}
-
+```{r}
+#| collapse: true
 
 tune_ps_xgboost <- ps(
   # ensure non-negative values
@@ -1058,16 +1065,15 @@ However, remember that these results are from 25 evaluations only, and with 4 hy
 The table below shows the results we got from 500 evaluations along with the results we got in earlier development work for this article (the hyper-parameter tuning results are subject to randomness, first due to the specification of the cross-validation folds and second due to the random search). We'll use these when looking at the model.
 
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 
 xgb_res <- data.table(Hyperparameter=c("nrounds", "tweedie_variance_power", "eta", "gamma[fixed]", "max_depth"),
                       Evals500=as.character(c(265, 1.011768, 0.2310797, 0, 3)),
                       Best=as.character(c(233, 1.01, 0.3, 0, 3)))
 
+datatable(xgb_res)
 
-kable_styling(
-  kable(xgb_res),
-  full_width = FALSE)
 
 
 ```
@@ -1096,7 +1102,9 @@ lrn_xgboost_tuned$train(task)
 
 If, instead, you would like to fit the XGBoost model found after 25 evaluations, you can use the code below to pick up the selected values after tuning. This replaces the model fitted above using the hyper-parameters found after 500 evaluations.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
+
 lrn_xgboost_tuned = lrn("regr.xgboost")
 lrn_xgboost_tuned$param_set$values = instance_xgboost$result_learner_param_vals
 lrn_xgboost_tuned$train(task)
@@ -1106,7 +1114,7 @@ lrn_xgboost_tuned$train(task)
 We haven't run this code so our `lrn_xgboost_tuned` uses the 500 evaluations results.
 
 
-## Consolidate results
+### Consolidate results
 
 Now we will consolidate results for these models. We will gather together:
 
@@ -1151,7 +1159,7 @@ Before we do any analysis, let's fit a couple more models to compare these resul
 
 
 
-## Chainladder - the baseline model
+### Chainladder - the baseline model
 
 Since this is a traditional triangle, it seems natural to compare any results to the Chainladder result. So here, we will get the predicted values and reserve estimate for the Chain ladder model.
 
@@ -1161,7 +1169,7 @@ At the same time, no model, whether it be the Chainladder, or a more sophisticat
 
 
 
-### Getting the Chainladder reserve estimates
+#### Getting the Chainladder reserve estimates
 
 
 The Chainladder reserve can also be calculated using a GLM with:
@@ -1225,9 +1233,9 @@ model_forecasts[, lrn_glm$id := lrn_glm$predict(task=task_cl, row_ids=1:nrow(dat
 
 
 
-## LASSO (regularised regression)
+### LASSO (regularised regression)
 
-Finally, we will use the LASSO to fit a model. We are going to fit the same model as we did in our previous [post](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-lasso/). We'll include a bare-bones description of the model here. If you haven't seen it before, then you may want to just take the model as given and skip ahead to the next section. Once you've read this entire article you may then wish to read the post on the LASSO model to understand the specifics of this model.
+Finally, we will use the LASSO to fit a model. We are going to fit the same model as we did in our previous [chapter](@f-lasso). We'll include a bare-bones description of the model here. If you haven't seen it before, then you may want to just take the model as given and skip ahead to the next section. Once you've read this entire article you may then wish to read the post on the LASSO model to understand the specifics of this model.
 
 The main things to note about this model are:
 
@@ -1408,7 +1416,7 @@ Also we don't need to set up a cross-validation resampling for this task since t
 task_lasso <- TaskRegr$new(id = "reserves_lasso", backend = dat_plus, target = "pmts")
 
 # sort out row and column roles
-task_lasso$set_row_roles(dat[train_ind==FALSE, row_id], roles="validation")
+task_lasso$set_row_roles(dat[train_ind==FALSE, row_id], roles="holdout")
 
 # turn row_id into a name
 task_lasso$set_col_roles("row_id", roles="name")
@@ -1482,14 +1490,15 @@ model_forecasts[, lrn_cv_glmnet$id := lrn_cv_glmnet$predict(task_lasso, row_ids 
 
 
 
-# Model analysis
+## Model analysis
 
 This is the interesting bit - let's look at all the models to see how they've performed (but remember not to draw too many conclusions about model performance from this example as discussed earlier!)
 
 Before we go any further though, we will make a long version of the data set (1 model result per row) as that will make a lot of calculations easier.
 data.table has a `melt` method for doing this. Tidyverse users may be more familiar with `pivot_longer()` which also does the same thing.
 
-```{r, collapse=TRUE}
+```{r}
+#| collapse: true
 
 # get list of variables to form observations by - this is why we used a common naming structure
 model_names <- names(model_forecasts)[ names(model_forecasts) %like% "regr"]
@@ -1502,8 +1511,8 @@ model_forecasts_long <- melt(model_forecasts,
 # rename columns
 setnames(model_forecasts_long, c("variable", "value"), c("model", "fitted"))
 
-kable(head(model_forecasts_long))
-kable(tail(model_forecasts_long))
+head(model_forecasts_long)
+tail(model_forecasts_long)
 
 ```
 
@@ -1517,7 +1526,7 @@ Here's a reminder on the model names:
 * `regr.xgboost` and `regr.xgboost_prev` - the two XGBoost models.
 
 
-## RMSE
+### RMSE
 
 As discussed above, we are going to do these calculations manually rather than use the **mlr3** benchmark tools because we want to include the Chainladder and LASSO models as well (even though we've fitted them here using **mlr3**, we used separate tasks). In any case the calculations are easy to do in **data.table** (for those who know that package anyway!) and it can be helpful to see what's going on..
 
@@ -1545,12 +1554,9 @@ Let's have a look at these results separately for past and future data sets with
 
 ```{r}
 
-kable_styling(
-  kable(model_rmse[train_ind==TRUE, .(model, num, rmse)][order(rmse),],
-        digits=0,
-        format.args = list(big.mark = ",", scientific = FALSE)),
-  full_width = FALSE)
-
+model_rmse[train_ind==TRUE, .(model, num, rmse)][order(rmse),] |> 
+  datatable() |> 
+  formatRound("rmse", digits = 0)
 
 
 ```
@@ -1565,12 +1571,9 @@ However, the key indicator is performance on a hold-out data set, in this case t
 
 ```{r}
 
-kable_styling(
-  kable(model_rmse[train_ind==FALSE, .(model, num, rmse)][order(rmse),],
-        digits=0,
-        format.args = list(big.mark = ",", scientific = FALSE)),
-  full_width = FALSE)
-
+model_rmse[train_ind==FALSE, .(model, num, rmse)][order(rmse),] |> 
+  datatable() |> 
+  formatRound("rmse", digits = 0)
 
 
 ```
@@ -1581,20 +1584,20 @@ For the future data, we see a very different story. As expected, the tuned decis
 
 
 
-## Visualising the fit
+### Visualising the fit
 
 Although useful, the RMSE is just a single number so it's helpful to visualise the fit.
 In particular, because these are models for a reserving data set, we can take advantage of that structure when analysing how well each model is performing.
 
 
-### Fitted values
+#### Fitted values
 
 First, lets show visualise the fitted payments.
 The graphs below show the log(fitted values), or log(payments) in the case of the actual values.
 
 
-```{r, fig.height = 10}
-
+```{r}
+#| fig-height: 10
 
 # add in the actual values for comparison
 actuals <- model_forecasts_long[model=="regr.glm",]
@@ -1635,7 +1638,7 @@ Some things are apparent from this:
 
 
 
-### Actual vs Fitted heat maps
+#### Actual vs Fitted heat maps
 
 We can also look at the model fits via heat maps of the actual/fitted values.
 The function defined below calculates the actual/fitted values, capping and collaring them at 400% and 25%.
@@ -1698,7 +1701,8 @@ GraphHeatMap <- function(dat, x="dev", y="acc", facet="model", actual, fitted, l
 
 
 
-```{r, fig.height = 10}
+```{r}
+#| fig-height: 10
 
 g <- GraphHeatMap(model_forecasts_long, x="dev", y="acc", facet="model", actual="pmts", fitted="fitted")
 g$graph
@@ -1709,7 +1713,7 @@ All models have shortcomings, but the LASSO and previously tuned XGBoost models 
 
 
 
-### Quarterly tracking
+#### Quarterly tracking
 
 Finally, we will look at the predictions for specific parts of the data set.
 Quarterly tracking graphs:
@@ -1845,7 +1849,10 @@ QTracking <- function(dat,
 ```
 
 
-```{r, fig.height=8, fig.width=8}
+```{r}
+#| fig-height: 8
+#| fig-width: 8
+ 
 QTracking(model_forecasts,
           model_names = model_names,
           primary_predictor = "acc",
@@ -1864,7 +1871,10 @@ Here are a few more tracking plots to help further illustrate the model fits.
 
 **Tracking for accident quarter when development quarter = 24**
 
-```{r, fig.height=8, fig.width=8}
+```{r}
+#| fig-height: 8
+#| fig-width: 8
+
 
 QTracking(model_forecasts,
           model_names = model_names,
@@ -1885,7 +1895,9 @@ All models reflect this to different extents, with XGBoost and the LASSO doing t
 **Tracking for accident quarter when development quarter = 35**
 
 
-```{r, fig.height=8, fig.width=8}
+```{r}
+#| fig-height: 8
+#| fig-width: 8
 
 QTracking(model_forecasts,
           model_names = model_names,
@@ -1908,7 +1920,9 @@ We can look at similar plots by development quarter for older and newer accident
 
 **Tracking for development quarter when accident quarter = 5**
 
-```{r, fig.height=8, fig.width=8}
+```{r}
+#| fig-height: 8
+#| fig-width: 8
 
 QTracking(model_forecasts,
           model_names = model_names,
@@ -1923,7 +1937,9 @@ QTracking(model_forecasts,
 
 **Tracking for development quarter when accident quarter = 20**
 
-```{r, fig.height=8, fig.width=8}
+```{r}
+#| fig-height: 8
+#| fig-width: 8
 
 QTracking(model_forecasts,
           model_names = model_names,
@@ -1938,7 +1954,7 @@ QTracking(model_forecasts,
 
 
 
-# Reserves
+## Reserves
 
 Finally, we'll look at the reserve estimates from the different models. For convenience, here's the mapping of model name to model type again:
 
@@ -1949,7 +1965,8 @@ Finally, we'll look at the reserve estimates from the different models. For conv
 * `regr.xgboost` and `regr.xgboost_prev` - the two XGBoost models.
 
 
-```{r, fig.height=5}
+```{r}
+#| fig-height: 5
 
 # summarise the future payments and each model projection by accident quarter
 # remember ml is a character vector of all the model names, which are columns of
@@ -1991,7 +2008,10 @@ g1
 Let's look at a zoomed in version of this plot.
 
 
-```{r, fig.height=5, warning=FALSE, message=FALSE}
+```{r}
+#| fig-height: 5
+#| warning: false
+#| message: false
 
 g1 + coord_cartesian(ylim=c(0, 40), xlim=c(10, 40))
 
@@ -2004,7 +2024,7 @@ Finally, here are the overall reserves, summed over all accident quarters
 ```{r}
 
 os <- os_acc[, .(reserve=sum(reserve), actual=sum(actual)), by=.(model)]
-os[, ratio := 100*reserve / actual][, actual := NULL]
+os[, ratio := reserve / actual][, actual := NULL]
 
 
 # sort
@@ -2013,8 +2033,11 @@ os <- os[order(ratio_diff)][, ratio_diff := NULL]
 
 # output table
 setnames(os, c("model", "reserve", "ratio"), c("Model", "Reserve(Bn)", "Ratio to actual(%)"))
-kable_styling( kable(os, digits=0, format.args = list(big.mark = ",", scientific = FALSE)),
-               full_width = FALSE)
+
+os |> 
+  datatable() |> 
+  formatRound("Reserve(Bn)", digits = 1) |> 
+  formatPercentage("Ratio to actual(%)", digits = 0)
 
 
 ```
@@ -2025,7 +2048,7 @@ The overall reserve for the Chainladder model (regr.glm) hides the fact that thi
 
 
 
-# Commentary
+## Commentary
 
 What's going on with the XGBoost results?
 
@@ -2043,7 +2066,8 @@ It might be helpful to have another look at the folds used in the cross-validati
 These are shown below - the yellow dots represent training data points in each fold, the blue dots are the test data.
 The grey rectangle marks the interaction.
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 
 # interaction x >= 17 && y >= 21
 
@@ -2085,7 +2109,9 @@ folds <- melt(xydat,
 ```
 
 
-```{r, fig.height=6, echo=FALSE}
+```{r}
+#| fig-height: 6
+#| echo: false
 
 ggplot(data=folds, aes(x=dev, y=acc, colour=value)) +
   facet_wrap(~variable, ncol=3)+
@@ -2128,7 +2154,7 @@ This problem has been discussed in the context of time series modelling, where t
 We'll be discussing this in a future article.
 
 
-# Conclusion
+## Conclusion
 
 We set out to demonstrate how to fit a number of reserving models to a data set.
 Our results have been mixed - but we expected that in advance.
@@ -2138,7 +2164,7 @@ This work lays a baseline for our upcoming articles where we will look at ways o
 * considering more appropriate validation techniques.
 
 
-## What next?
+### What next?
 
 You can try running this code and changing some things - e.g. the hyper-parameters tuned, search strategy, number of iterations etc.
 
@@ -2150,6 +2176,8 @@ You can also try running the code for different data sets. It's best to initiall
 * Data set 4 = data set 2 but where the strength of the calendar period effect varies by development period.
 
 ```{r, eval=FALSE}
+#| eval: false
+
 
 library(data.table)
 
@@ -2246,15 +2274,10 @@ dat <- CreateSyntheticData(whichsim = 3, numperiods = 40)
 ```
 
 
-If you are looking for something more advanced, then have a look at our 3-part series on an advanced example where individual data and a number of different features are used in an XGBoost model. To find this follow the links:
-
-* [Part 1](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/baudry-part1/) - data generation
-* [Part 2](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/baudry-part2/) - data preparation
-* [Part 3](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/baudry-part3/) - modelling and analysis
 
 
 
-# Session details
+## Session details
 
 The details of the R session used to generate the results are below.
 

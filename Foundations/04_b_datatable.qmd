@@ -1,4 +1,4 @@
-# R's data.table - a useful package for actuaries {#f-datatable}
+# R's data.table - a useful package for actuaries {#sec-datatable}
 
 *This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/datatable/) was written by [Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and originally published on 19 Oct 2020*
 

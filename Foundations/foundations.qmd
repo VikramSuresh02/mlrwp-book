@@ -1,6 +1,6 @@
 # Foundations Workstream 
 
-# Introduction to the Foundations workstream {#foundations}
+# Introduction to the Foundations workstream {#sec-foundations}
 
 *tbc*
 

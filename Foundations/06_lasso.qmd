@@ -1,4 +1,4 @@
-# Self-assembling claim reserving models using the LASSO {#f-lasso}
+# Self-assembling claim reserving models using the LASSO {#sec-lasso}
 
 *This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-lasso/) was written by
 [Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and [Greg Taylor](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gtaylor/) and originally published on 26 April 2021*
