@@ -1,6 +1,6 @@
 # Getting to grips with GLM, GAM and XGBoost {#f-intro_glm_gam_xgboost}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-intro_glm_gam_xgboost/) was written by [Tom Saliba](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/tsaliba/) and originally published on 5 July 2021.*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/intro-glm-gam-xgboost/) was written by Tom Saliba and originally published on 5 July 2021.*
 
 
 

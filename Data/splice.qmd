@@ -1,0 +1,24 @@
+# SPLICE {#sec-splice}
+
+*This article was written by Greg Taylor and Sarah MacDonnell originally published [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/data/splice/) on 14 November 2022*
+
+
+The R data simulation package [SynthETIC](https://cran.rstudio.com/web/packages/SynthETIC/index.html) has been overtaken by an updated version, [SPLICE](https://cran.r-project.org/web/packages/SPLICE/index.html) (Synthetic Paid Loss and Incurred Cost Experience).
+
+SPLICE, whilst still based on SynthETIC, has now been extended to simulate case estimates, and hence incurred claims. It can be accessed on [CRAN](https://cran.r-project.org/web/packages/SPLICE/index.html), along with other relevant resources including a reference manual.
+
+SPLICE is a useful tool for producing simulated datasets for testing out various reserving, including machine learning, methods. It generates datasets of triangles, as well as individual claims transactions, showing paid and incurred developments by occurrence as well as notification and settlement times.
+
+The user can set up specific features in the datasets. For example in the [Al-Mudafer thesis](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/documents/pdf/Al-Mudafer_Honours-thesis.pdf) which we have previously [featured](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/literature-review/nn-al-mudafer/), 4 different types of claims triangles were generated:
+
+-   simple short tail claims
+-   a gradual increase in claims processing speed
+-   an inflation shock
+-   high volatility long tail claims.
+
+The MLR WP used these same datasets in our [GIRO 21 workshop Machine Learning Reserving on Triangle Data](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/talks/research/20211115_giro/).
+
+We recommend using SPLICE over SynthETIC going forward as we understand that SPLICE is the one that will continue to be supported and updated.
+
+Our previous article introducing SynthETIC can be found [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/data/synthetic/).
+

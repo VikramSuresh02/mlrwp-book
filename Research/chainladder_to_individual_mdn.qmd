@@ -1,0 +1,5 @@
+# From Chain Ladder to Individual Mixture Density Networks on SPLICE Data
+
+Refer to this [blog post](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/research/chain_ladder_to_individual_mdn/) by Jacky Poon where he details a step-by-step process of moving from a Chain Ladder model to Individual claims models using neural networks.
+
+The post was published on 18 April 2023.

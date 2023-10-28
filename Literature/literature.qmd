@@ -1,7 +1,4 @@
-# Literature review Workstream 
+# Literature review
 
-# Introduction to the Literature review workstream {#sec-literature}
+The [Literature review workstream](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/workstreams/literature-review/) reviews current literature on the use of ML in reserving. In this part of the book, we cover some innovative techniques that we have learned about in the literature - the use of GBM models in individual claim reerving and the possibilities of neural networks.
 
-*tbc*
-
-Refer to our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/literature-review/) for now

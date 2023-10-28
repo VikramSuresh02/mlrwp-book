@@ -1,7 +1,7 @@
 # Getting started {#sec-getting-started}
 
 
-*This article was originally posted [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/intro-to-foundations-blog/) and authored by Nigel Carpenter and Grainne McGuire*
+*This article was originally posted [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/intro-to-foundations-blog/) and authored by Nigel Carpenter and Grainne McGuire. It has been lightly edited for inclusion in this book.*
 
 
 Getting started with data science and machine learning (ML) has never been easier or harder. 
@@ -57,15 +57,5 @@ As actuaries most of us should have some familiarity with Generalised Linear Mod
 
 
 
-## Foundations workstream
 
-Our task is to provide some stepping stones to getting started with ML.
-On our [Workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/foundations), we maintain a list of useful resources, including a link to those compiled by a complimentary IFoA group, the [Data Science](https://www.actuaries.org.uk/practice-areas/general-insurance/research-working-parties/data-science) Working Party.
-
-We also have a planned series of articles on getting started in Machine Learning which will be posted over the next few weeks.
-Topics will include getting started with R, data manipulation, graphing, and fitting various methods to claims reserving examples (following the steps outlined above).
-Note that initially our articles will mainly be in R, but we hope to extend content to including python examples in the future.
-
-
-So check back regularly and search for the [foundations](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/tags/foundations/) tag or look at the list of posts to view our content. 
 

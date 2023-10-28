@@ -1,0 +1,4 @@
+# Research
+
+The [Research workstream](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/workstreams/research/) carries out research in a number of different areas. In the past we have looked at the performance of different ML models for aggregate claims reserving. We are currently investigating individual claims reserving and the use of deep learning.
+

@@ -1,7 +1,12 @@
-# Foundations Workstream 
+# Foundations 
 
-# Introduction to the Foundations workstream {#sec-foundations}
 
-*tbc*
+The Foundations Workstream aims to provide a path to gaining competency in common statistical and machine learning techniques by:
 
-Refer to our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/foundations/) for now
+- creating a roadmap of methods to learn
+- gathering together relevant learning materials and,
+- developing notebooks in R and Python with example code, where the methods are applied to reserving data sets.
+
+
+
+Our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/workstreams/foundations/) contains a list of useful resources as well as links to our posts, which are reproduced here.

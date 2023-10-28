@@ -1,8 +1,12 @@
 # Summary
 
-the content in this book was created using the following R environment
+
+
+
+The content in this book was created on windows 10 using R 4.3.1 and the following installed packages:
+
 
 ```{r}
-sessionInfo()
+installed.packages()[, c(1,3)]
 ```
 

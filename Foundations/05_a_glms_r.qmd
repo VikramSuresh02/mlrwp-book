@@ -1,6 +1,13 @@
+---
+resources: 
+  - _glms_meyershi.csv
+---
+
 # Reserving with GLMs in R {#sec-glms-r}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/glms/) was written by [Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and originally published on 26 April 2021*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/r-glms/) was written by Grainne McGuire and originally published on 26 April 2021*
+
+*A version of this article using Python is available [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/python-glms/)
 
 
 An aim of the MLR working party is to promote the use of machine learning (ML) in reserving.
@@ -54,10 +61,12 @@ We've made a CSV file of the data (in long format) available [here](/mlr-blog/cs
 If you want to load it in, then use the fread statement that points to the website address which is included in the comments below.
 
 
+
 ```{r}
 
 # location of data on the website:
-msdata <- fread("https://institute-and-faculty-of-actuaries.github.io/mlr-blog/csv/glms_meyershi.csv")
+# (Nov 2023 note: due to revamping of MLRWP website, link is broken. So have changed link here)
+msdata <- fread("./_glms_meyershi.csv")
 
 setDT(msdata)
 

@@ -1,10 +1,32 @@
 # Introduction
 
-tbc - details about MLRWP to follow,
+::: {.callout-note icon=false}
 
-for now, check out our website <https://institute-and-faculty-of-actuaries.github.io/mlr-blog/>
+## Our opening statement from August 2020
+
+It’s probably fair to say that we are living in the era of big data and machine learning. 
+
+:::
+
+This was true in 2020 when Sarah MacDonnell (chair of the MLRWP) launched our website and blog in her [first post](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/general/intro-to-blog/) and in the years since, advances in neural networks, and the recent explosion in large language models have put AI and ML firmly front and centre.
 
 
-This line left in to show how references work:
+In the actuarial world machine learning (ML) has certainly made inroads into personal lines pricing - tight margins and high competitiveness create a large incentive to extract as much value and insight from data as possible. 
 
-See @knuth84 for additional discussion of literate programming.
+However, there has been less use of machine learning in reserving, possibly due to less obvious or immediate competitive advantages. Additionally practical challenges in implementing ML, from actually using the models, to finding the time in a busy reservint team to develop the necessary skills have limited use of ML. 
+
+But while reserving may not make extensive use of ML yet, there is recognition of its potential and a lot of interest. Ceratinly, we have observed high engagement with our material at the various conferences we have presented at.
+
+ML techniques applied to richer, more detailed and broader datasets may allow us to gain insights we have not been able to conceive of before; be it as new segmentations, operational improvements, early warning systems, cost efficiencies, or revelations into claim life cycles, settlement patterns or consumer behaviour.
+
+There may also be operational efficiencies to be gained; freeing time for targeted deep dives, allowing more frequent updates, or benefitting those with very large numbers of diverse classes.
+
+Over the last four years we have published material in a number of areas. We gather much of this material together in this book, organised by workstream:
+
+- Foundations: to provide useful educational resources, including sharing of code
+- Data: to collate and promote sources of data that are available to help further research
+- Literature Review: to review and promote relevant papers (and help us bring together the best ideas that are out there)
+- Research: to undertake our own research projects
+- Practical Considerations: to understand practical issues facing reserving actuaries implementing ML in their work
+- Survey: to understand what is currently being done on the ground, and identify any barriers
+

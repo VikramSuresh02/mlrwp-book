@@ -1,0 +1,98 @@
+# Machine learning: Reserving on triangles - Q & A after GIRO 2021
+
+*This blog was originally published [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/research/giro-2021-questions/) on 24 October 2022 and was authored by April Lu.*
+
+
+## Introduction
+
+In 2021 we presented the [results of using machine learning on a number of triangular data sets](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/talks/research/20211115_giro/). In this post we cover the Q&A session that followed the session.
+
+## Technical questions
+
+#### Did you do any simulations on classes that had very sparse data points to see how the ML models worked against the CL?
+
+No we haven't. ML models tend to perform better on larger volume data sets. However if faced with this problem in practice, we could overcome it by, for example, fitting ML models to market data and extract elements such as claims development patterns/trends to see if they are relevant to the sparse dataset.
+
+#### Do you choose the cross validation set as a random sample or a stratified sample?
+
+The cross validation is currently performed using random sampling. There are other possible approaches which the WP is planning to explore in the future such as roll-origin cross validation.
+
+#### Given tree based models are poor at extrapolating, does this not affect their suitability for reserving?
+
+The performance of tree-based models will depend on the characteristic of the class of business being modelled, as with any statistical model. In general, extrapolation is always a challenge, particularly where there are time trends present in the modelled population.
+
+#### How do we identify which model to use among the Lasso basic, extra, xgboost basic and extra?
+
+Different models have different characteristics (e.g. models with extra features tend to perform better at picking up Accident/Calendar trends but require more tuning and may be more prone to overfitting). Our presentation covers 5 typical scenarios and compares the relative model performance in each scenario using a range of diagnostics. However the comparison uses only basic hyperparameter tuning (through k fold cross validation) and is based on simple synthetic datasets. More needs to be done to better understand the characteristics of each model with real life data. So lots of trial and error will be expected.
+
+#### Thanks for a great presentation. How sensitive are the results/models to the development period granularity of the triangles?
+
+A reasonable amount of data is generally required for ML models, so annual development triangles are unlikely to produce optimal results. Our dataset is quarterly. In practice a balance will need to be struck between the volume of data for the ML models and the granularity required to be captured.
+
+#### Using machine learning methods, would you advise that claims data be split into large and attritional losses?
+
+It could be something worth experimenting with. However aggregate large claims data (e.g. in triangle form) tend to be high severity low frequency in nature. Reserving using such data may not be the most appropriate for ML methods, which are better trained on large volumes of data. The working party is undertaking separate research into individual claims reserving using ML methods, which could be something interesting for you to follow up on.
+
+#### What additional features were engineered?
+
+Extra features were: ramp functions (a unary real function, whose graph is shaped like a ramp) by accident origin, development and calendar periods, and interaction terms between features.
+
+#### With a calendar quarter effect like Ogden or a step change in inflation, do the models allow flexibility in the assumptions of what will happen in future? E.g. if we think inflation will return to normal, or increase further, can we adjust the model accordingly?
+
+Whilst ML models can pick up calendar quarter effects in historical data reasonably well, extrapolation of future trends (such as the Ogden inflation discussed here) is always a key challenge in reserving. It may therefore be more appropriate to combine ML model output with expert judgements using wider actuarial toolkits.
+
+#### Your data seemed to show constantly increasing data - in the LM we often see triangles which also shows reductions. How do the models work in this case?
+
+There are a number of options to dealing with reductions. One would be to change the underlying distribution of modelled claims to allow for negative values. Modelling gross claim amounts and recoveries separately could also be an option. The WP is planning further research into this area and will publish our findings via blog posts or other events as we progress on this.
+
+#### Are there any heuristics/ rules of thumb you could recommend to initially tune the lambda hyper parameter in a reserving context?
+
+A lot of the heavy lifting is done by the glmnet package if you use its cross-validation functionality -- it will select a series of lambda parameters and fit models to all of these. It will then return the cross validation error associated with each of these. You then need to select the particular lambda to use, but the statistics / ML community identifies two useful values and thus two useful models:
+
+-   The lambda associated with the minimum CV error ("lambda.min")
+-   The largest lambda for which the CV error is within 1 standard deviation of the minimum ("lambda.1se")
+
+The first value gives you the model that minimises the CV error. However, if you are concerned about the possibility of over-fitting then you may prefer to use the lambda.1se model -- this will be simpler than the lambda.min model.
+
+These comments apply in general to any lasso problem. In a reserving context, you will also want to look at what the model is actually forecasting for your reserve and ask if it's reasonable. Consider both the overall result as well as more detailed diagnostics. This may help you prefer one model over the other. However, it may be the case that you will want to adjust the results of a lasso model before using it. For example, if you include calendar period trends, you may want to control how these are projected into the future. This type of adjustment is separate to the tuning the lambda hyperparameter but is very much part of our core actuarial practice.
+
+## Application
+
+#### Can the models incorporate other factors which we tend to use to help our judgement such as exposure factors, rate indices, etc.?
+
+Yes, that's one of the advantages of ML models -- additional features can be incorporated flexibly (the decision of whether to keep them is then informed by the predictions from the training process).
+
+#### Given machine learning algorithms are parameterized on historical data, do changes in risk profile, claims processes, a change in Ogden rate etc. lead to poor model output immediately after such a structural change? Is expert judgement more responsive to these changes in the short term?
+
+As with any traditional actuarial model (e.g. chain ladder, BF), ML models suffer from the limitation that history does not necessarily reflect future experience. However, if engineered appropriately, they may be more capable of identifying emerging trends in the data compared to traditional methods. Where ML methods better help us identify the drivers of experience (e.g. inflation, calendar year effect, sub-components like social inflation), we may then use this intelligence to identify where best to overlay current projections with SME judgements in extrapolating into the future. In any case we do not see ML methods being used to replace expert judgements (which are always important for any reserving exercise), but as useful extensions to the traditional actuarial toolkit at this stage.
+
+#### Have you considered combining the results from multiple machine learning methods - a sort of wisdom of crowds (of models)?
+
+It is definitely an interesting area to explore. So far we are focusing on individual methods as work is needed to better understand the characteristics of these methods in isolation. However once users become familiar and more comfortable with these methods, additional judgements could be made to combine results from different models as commonly done today with CL and BF methods.
+
+#### How do you fit these methods into the actuarial control cycle?
+
+At this stage we do not see ML methods being used to replace any existing reserving methods but useful extensions to the traditional actuarial toolkit, e.g. to produce an alternative set of results for benchmarking purposes. Such results may be helpful to more quickly identify areas of reserving that require extra attention from the actuary during the reserving cycle. More work is required to understand the performance of ML models on real life data for different classes of business.
+
+#### John said that machine learning in reserving is not yet a push button exercise - does that mean you expect it to become one?
+
+Unlikely as there will be key judgements involved in a reserving exercise that require human intervention (e.g. determination of trends applicable in the future). Even in just a machine learning setting, model structure and hyperparameter selection would require judgements, preventing reserving from being a 'push button' exercise. However ML models may help accelerate and improve human judgements in reserving by extracting better insight from data.
+
+#### Most of the time spent in real world reserving exercises can be around identifying 'outliers' for points to exclude, especially if there could be data issues - could these techniques help reduce that time at all?
+
+We would expect the cross validation process for ML models to help deal with outliers more effectively than traditional actuarial methods.
+
+#### Presume this model formulation would work on individual claims level data with far more features. Is this something you might want to experiment with?
+
+Correct. We are focusing on aggregate triangle data in this particular presentation as it is likely to be the most accessible form of data to reserving actuaries. The working party is undertaking separate research on individual claims reserving using ML methods (e.g. NN) and will publish our findings via blog posts or other events as we progress on this.
+
+#### What is the main limitation of adopting ML to predict the first cut of reserves at the moment?
+
+Possible limitations of ML models may include volume of data available, time trends which may invalidate the use of ML models for extrapolation into the future, performance of model dependent on hyperparameter tuning which can involve heavy judgement.
+
+#### When comparing ML vs. CL, it's fine to show examples of where the CL doesn't work well. But in the real world we use other methods (e.g. BF) when the CL doesn't work well, do you have an opinion on what would happen if you pitched ML against a fully worked up reserving exercise with all the optimisation that the actuary uses to set reserves?
+
+Applying ML methods to real life data and assessing their performance to fully worked up reserving results are one of the areas of further work planned for our working party. We will publish our findings via blog posts or other events as we progress on this.
+
+At this stage we do not see ML methods be used to replace any existing reserving methods but useful extensions to the traditional actuarial toolkit. More work is certainly required to better understand the performance of ML models on real life data under different circumstances. However we believe there is benefit in adopting ML models for reserving actuaries in the long run such as: faster identification of emerging trends, increased flexibility to incorporate more features, higher efficiency in reserving large numbers of cohorts.
+

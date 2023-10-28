@@ -1,6 +1,16 @@
+---
+resources: 
+  - _lasso_simdata1.csv
+  - _lasso_simdata2.csv
+  - _lasso_simdata3.csv
+  - _lasso_simdata4.csv
+---
+
 # ML modelling on triangles - a worked example
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-mlr3example/) was written by [Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and [Jacky Poon](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/jpoon/) and originally published on 5 May 2021.*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/mlr3example/) was written by Grainne McGuire and Jacky Poon and originally published on 5 May 2021.*
+
+*A python version (including a simple neural network) is available [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/scikitexample/).*
 
 
 
@@ -46,7 +56,7 @@ We use a simulated data set. There are several reasons for this:
 * We can control how the future experience emerges. In particular, we can ensure there are no future systemic changes (e.g. from legislation or court precedent) that would impact future payments. Changes like this can make it difficult when examining performance of reserve prediction methods on real data - it can be hard to separate poor performance of the model from a good model where the future experience departs markedly from that used to build the model.
 * We can share the data set (and the code to generate it) with you.
 
-The data set used is simulated data set 3 from the paper [Self-assembling insurance claim models using regularized regression and machine learning](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3241906). This is a 40x40 triangle of incremental quarterly payments over 10 years. Variables on the data set are accident, development and calendar quarters only. A copy of the data set is available [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/csv/lasso_simdata3.csv).
+The data set used is simulated data set 3 from the paper [Self-assembling insurance claim models using regularized regression and machine learning](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3241906). This is a 40x40 triangle of incremental quarterly payments over 10 years. Variables on the data set are accident, development and calendar quarters only. A copy of the data set is available [here](./_lasso_simdata3.csv).
 
 
 ### Machine learning and aggregate triangles
@@ -153,7 +163,7 @@ We've attached them separately here to make it clear which ones we are using but
 
 Some of the accompanying packages are on github only.
 Of these, we're just going to use one here - **mlr3extralearners** - which contains an extended set of machine learning models (the CRAN package **mlr3learners** includes the most common ones). 
-Install this using the **remotes** package - the code is given below in the comments.
+Install this using the **remotes** package - the code is given below in the comments. If you're using **renv** to manage your packages, then use that instead.
 
 You also need to have the following packages installed - but you do not need to attach them as a library:
 
@@ -178,7 +188,6 @@ reqd_packages <- c("data.table",
                    "mlr3extralearners",
                    "patchwork",
                    "ranger",
-                   "remotes",
                    "rpart",
                    "rpart.plot",
                    "viridis",
@@ -309,7 +318,7 @@ First, load in the data and have a look at it.
 ```{r}
 #| collapse: true
 
-dat <- fread("https://institute-and-faculty-of-actuaries.github.io/mlr-blog/csv/lasso_simdata3.csv")
+dat <- fread("./_lasso_simdata3.csv")
 
 head(dat)
 tail(dat)
