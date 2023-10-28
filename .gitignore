@@ -23,6 +23,7 @@
 !Practical/Images/*
 !Survey/*
 !renv/
+!renv/profiles/nov2023/renv.lock
 #!wordmark.png
 
 # Don't ignore docs directory since this is how we publish the book - ** needed to match all files
