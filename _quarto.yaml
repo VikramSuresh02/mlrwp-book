@@ -1,0 +1,74 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Machine Learning in Non-Life Reserving"
+  author: "Machine Learning in Reserving Working Party"
+  date: "28 October 2023"
+  page-navigation: true
+  chapters:
+    # introduction material
+    - index.qmd
+    - intro.qmd
+
+    # workstreams
+    # foundations
+    - part: Foundations/foundations.qmd
+      chapters:
+        - Foundations/01_getting_started.qmd
+        - Foundations/02_intro_to_r.qmd
+        - Foundations/03_top_ten_r_packages.qmd
+        - Foundations/04_a_tidyverse.qmd
+        - Foundations/04_b_datatable.qmd
+        - Foundations/05_a_glms_r.qmd
+        # # - Foundations/05_b_glms_python.qmd
+        - Foundations/06_lasso.qmd
+        - Foundations/07_mlr3example.qmd
+        - Foundations/08_intro_glm_gam_xgboost.qmd
+
+    # data
+    - part: Data/data.qmd
+      chapters:
+        - Data/simulationmachine.qmd
+        - Data/splice.qmd
+
+    # Literature review
+    - part: Literature/literature.qmd
+      chapters:
+        - Literature/baudry.qmd
+        - Literature/history_nn_papers.qmd
+        - Literature/al_mudafer.qmd
+
+    # Research
+    - part: Research/research.qmd
+      chapters:
+        - Research/giro-2021-questions.qmd
+        - Research/giro-2021-diagnostics.qmd
+        - Research/chainladder_to_individual_mdn.qmd
+
+    # Practical considerations
+    - part: Practical/practical.qmd
+      chapters:
+        - Practical/time_resource.qmd
+
+
+      # Practical considerations
+    - part: Survey/survey.qmd
+      chapters:
+        - Survey/surveys2020.qmd
+
+
+    # concluding material
+    - summary.qmd
+    # - references.qmd
+
+# bibliography: references.bib
+
+freeze: true
+
+format:
+  html:
+    theme: cosmo
+
+embed-resources: true

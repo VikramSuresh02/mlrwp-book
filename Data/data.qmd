@@ -1,7 +1,9 @@
-# Data Workstream 
+# Data 
 
-# Introduction to the Data workstream {#sec-data}
+The aims of the [Data Workstream](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/workstreams/data/) are to:
 
-*tbc*
+- Identify publicly available datasets that can be used to illustrate reserving techniques.
+- Provide a summary of the features available in each dataset.
+- Provide notebook examples of how to generate simulated datasets.
 
-Refer to our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/data/) for now
+In this section we will cover some data simulation tools which have been created both to meet the need for data given the lack of publicly available data and to have data with known features available to evaluaiton new techniques.

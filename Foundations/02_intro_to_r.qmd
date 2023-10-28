@@ -1,6 +1,6 @@
 # Introduction to R {#sec-intro-r}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/intro-to-r/) was written by [Wan Hsien Heah](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/wheah/) and originally published on 21 Sep 2020*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/intro-to-r/) was written by Wan Hsien Heah and originally published on 21 Sep 2020*
 
 There are several different data science tools available today. 
 R is one such tool that is used quite widely, free and easy to get started with. 

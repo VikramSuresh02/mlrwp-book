@@ -1,7 +1,7 @@
 # Self-assembling claim reserving models using the LASSO {#sec-lasso}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/f-lasso/) was written by
-[Grainne McGuire](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gmcguire/) and [Greg Taylor](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/gtaylor/) and originally published on 26 April 2021*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/lasso/) was written by
+Grainne McGuire and Greg Taylor and originally published on 26 April 2021*
 
 
 
@@ -9,7 +9,7 @@
 *In this post we look at how regularised regression techniques such as the LASSO can be used to set reserves for triangles.*
 
 
-The [Foundation Workstream's first post](/mlr-blog/post/intro-to-foundations-blog/) set out a suggested path to getting to grips with machine learning. The first step was to start by applying GLMs to reserving and one way of doing this was covered in our most recent post ([Reserving with GLMs](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/glms/)). 
+The [Foundation Workstream's first post](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/intro-to-foundations-blog/) set out a suggested path to getting to grips with machine learning. The first step was to start by applying GLMs to reserving and one way of doing this was covered in our most recent post ([Reserving with GLMs](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/r-glms/)). 
 
 In this post, we move onto the next step which is to use regularised regression methods. These allow us to build something that looks like a GLM but in a machine learning way - i.e. the machine selects the model. 
 Put simply, regularisation techniques shrink or regularise regression parameters towards zero (excluding the intercept - this is normally not regularised, so in effect, this means that the fitted values are regularised towards the constant term in the regression). This penalises more complex models and reduces the risk of overfitting. 

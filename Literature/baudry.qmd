@@ -1,6 +1,8 @@
 # Non-parametric individual claim reserving in insurance {#sec-baudry}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/baudry-part1/) was written by [Nigel Carpenter](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/ncarpenter/) and originally published on 13 November 2020.*
+*This was originally published as a series of 3 blog posts, with the first one being [here](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/literature-review/baudry-part1/) and was written by Nigel Carpenter.*
+*The blogs were published between 13 - 30 November 2020.* 
+
 
 ## Introduction
 

@@ -1,5 +1,10 @@
 # Preface {.unnumbered}
 
-This book gathers together material produced by the MLRWP.
+The General Insurance Machine Learning in Reserving working party (MLRWP) is a group of over 70 volunteers, bringing together a range of data scientists, actuaries and academics from around the globe.
 
-To learn more visit <https://institute-and-faculty-of-actuaries.github.io/mlr-blog/>.
+When we started out in 2019, our premise was to find out why, whilst machine learning techniques are widespread in pricing, they are not being adopted ‘on the ground’ in reserving (certainly in the UK). Since then we have been working to help GI reserving actuaries develop data science skills, and are looking at ways that machine learning can be incorporated into reserving practice.
+
+We have a [website](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/) and regularly publish on our [blog](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/posts.html).
+
+In this book, we have gathered together much of the material from our blog.
+

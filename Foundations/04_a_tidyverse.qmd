@@ -1,6 +1,6 @@
 # The tidyverse for actuaries {#sec-tidyverse}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/tidyverse/) was written by [Oli Grossman](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/ogrossman/) and originally published on 6 Oct 2020*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/tidyverse/) was written by Oli Grossman and originally published on 6 Oct 2020*
 
 
 

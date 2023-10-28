@@ -1,11 +1,16 @@
+---
+resources: 
+  - _Al-Mudafer_Honours-thesis.pdf
+---
+
 # Probabilistic Forecasting with Neural Networks Applied to Loss Reserving {#sec-al-mudafer}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/l-nn-al-mudafer/) was written by [Sarah MacDonnell](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/smacdonnell/) and originally published on 30 September 2021.*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/literature-review/nn-al-mudafer/) was written by Sarah MacDonnell and originally published on 30 September 2021.*
 
 
 ## Muhammed Taher Al-Mudafer's thesis, November 2020
 
-This [thesis](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/pdf/Al-Mudafer_Honours-thesis.pdf) explores emerging Neural Network (NN) techniques that:
+This [thesis](./_Al-Mudafer_Honours-thesis.pdf) explores emerging Neural Network (NN) techniques that:
 
 * enable a distribution of results to be produced rather than just a central estimate
 * improve explainability and interpretability (in that you start with a distribution that you understand).
@@ -28,7 +33,7 @@ I would highly recommend this accessible thesis that is a good source of backgro
 
 ## Want to read more? {.unnumbered}
 
-* The thesis: [Probabilistic Forecasting with Neural Networks Applied to Loss Reserving](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/pdf/Al-Mudafer_Honours-thesis.pdf)
+* The thesis: [Probabilistic Forecasting with Neural Networks Applied to Loss Reserving](./_Al-Mudafer_Honours-thesis.pdf)
 * The research paper based on the thesis: [Stochastic loss reserving with mixture density neural networks](https://arxiv.org/abs/2108.07924)
 
 

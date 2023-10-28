@@ -1,14 +1,12 @@
 # My Top 10 R Packages for Data Analysis {#sec-topten-r-packages}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/topten-r-packages/) was written by [Jackie Poon](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/jpoon/) and originally published on the MLRWP blog on 29 Sep 2020*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/foundations/topten-r-packages/) was written by Jackie Poon and originally published on the MLRWP blog on 29 Sep 2020*
 
 
 *In turn, this article was originally published on [Actuaries Digital](https://www.actuaries.digital/2019/09/26/my-top-10-r-packages-for-data-analytics/) (the magazine of the Actuaries Institute Australia), on 26/09/2019.* 
 *It has been updated for changes in packages since that time.*
 
-*Those new to R or machine learning may wish to treat this article as a preview for how to do different tasks in R since it is pitched at a more advanced level.*
-*We will be revisiting some of the topics below in this blog at a more introductory level - for example the next couple of posts will discuss the tidyverse and data.table packages.*
-
+*It's now 2023 (at time of publication) and things have moved on significantly in this time - so check for updates on new packages and approaches before diving into any of the applications below*
 
 A few months ago Zeming Yu wrote ["My top 10 Python packages for data science"](https://www.actuaries.digital/2019/04/11/my-top-10-python-packages-for-data-science/) where he shared his top Python packages for Data Science. Like him, my preferred way of doing data analysis has shifted away from proprietary tools to these amazing freely available packages - except extending beyond data science and into traditional actuarial applications as well.
 
@@ -140,7 +138,7 @@ While most example usage and online tutorials will be in Python, they translate 
 For another example of keras usage, the Swiss ["Actuarial Data Science" Tutorial](https://actuarialdatascience.org/ADS-Tutorials/) includes another example with [paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3320525) and [code](https://github.com/JSchelldorfer/ActuarialDataScience/tree/master/3%20-%20Nesting%20Classical%20Actuarial%20Models%20into%20Neural%20Networks). 
 
 
-*since the time of writing, torch has become available in R and does not require a Python installation so is a good alternative.*
+*since the time of writing, torch has become available in R and does not require a Python installation so is another alternative.*
 
 
 

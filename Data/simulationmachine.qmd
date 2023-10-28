@@ -1,7 +1,7 @@
-# simulationmachine {#sec-simulationmachine}
+# simulationmachine engine for simulating data {#sec-simulationmachine}
 
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/simulationmachine/) was written by [John McCarthy](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/jmccarthy/) and originally published on 25 January 2021.*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/data/simulationmachine/) was written by John McCarthy and originally published on 25 January 2021.*
 
 
 

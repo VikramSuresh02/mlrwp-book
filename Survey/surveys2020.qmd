@@ -1,0 +1,53 @@
+---
+resources: 
+  - _MLR_UKSurveyIFoA.pdf
+  - _MLR_CanadaSurvey.pdf
+---
+
+# 2020 Surveys of the use of ML in reserving
+
+In 2020 Sarah MacDonnell and Jacqueline Friedland conducted surveys on the use of ML in reserving in the UK and Canada respectively.
+
+
+## UK
+
+
+::: {.callout-note icon=false}
+
+## Enthusiasm from reserving actuaries but stakeholder engagement low
+
+:::
+
+
+In 2020 undertook a survey to find out to what extent machine learning is currently being used in reserving in the UK.
+
+We found that there was near universal enthusiasm for developing techniques amongst reserving actuaries. This contrasts starkly with the [GIROC 2014 reserving survey](https://www.actuaries.org.uk/system/files/documents/pdf/girocreservingsurveyfinal.pdf) which found that "triangles and chain ladder and Bornhuetter-Ferguson type techniques are still the methods of choice and there is very little appetite for new methodologies to be found." There certainly appears to have been quite a sea change in attitudes towards new reserving techniques since then.
+
+Despite this enthusiasm only a very small number of companies have actually applied machine learning to reserving so far. It seems a gap is opening up in the motor insurance industry - will these companies gain an advantage over their competitors?
+
+One of the key differentials seems to be stakeholder engagement: with a key barrier for reserving teams being time and resource limitations, investment and support from management is vital. Developing the necessary knowledge is not something that can be learned in an afternoon. To quote one respondent "it is complicated and is a lot of work".
+
+It is interesting to note that many of the companies already use machine learning for pricing, so will have a lot of the skills within their organisation, but they are not necessarily turning their attention to applying these to reserving.
+
+For the fuller picture, and to see why some companies are choosing to invest in this, please see the UK write-up [here](./_MLR_UKSurveyIFoA.pdf).
+
+Please note, the UK survey comprised personal lines companies only.
+
+
+## Canada
+
+
+On behalf of the working party, Jacqueline Friedland conducted a survey among Canadian actuaries on the use of machine learning (ML) in reserving. The survey respondents consisted of:
+
+-   Nine insurers including
+    -   Canadian and global companies
+    -   One reinsurer
+-   Six consulting firms including
+    -   Canadian and global firms
+    -   Three of the big 4 accounting firms
+-   Three telephone interviews and twelve email responses
+
+Overall there was enthusiasm for the potential of ML to assist with setting reserves, with four insurers currently using ML in the reserving process. For three of these insurers, ML was used for additional insights, but, significantly, the final insurer used ML to book reserves.
+
+The full findings of the survey can be found [here](./_MLR_CanadaSurvey.pdf).
+

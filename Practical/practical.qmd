@@ -1,7 +1,5 @@
-# Practical Considerations Workstream 
+# Practical Considerations
 
-# Introduction to the Practical Considerations workstream {#sec-practical}
 
-*tbc*
 
-Refer to our [workstream page](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/practical_considerations/) for now
+Members of the [Practical Considerations workstream](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/project/practical_considerations/) look at practical issues facing those wishing to use ML techniques in their day-to-day reserving work.

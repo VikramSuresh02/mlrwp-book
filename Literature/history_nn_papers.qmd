@@ -1,6 +1,6 @@
 # A brief history of papers looking at using neural networks in reserving {#sec-history-nn-reserving}
 
-*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/l-nn-cas2020/) was written by [Kevin Kuo](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/kkuo/) and originally published on 26 July 2021.*
+*This [article](https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/literature-review/nn-cas2020/) was written by Kevin Kuo and originally published on 26 July 2021.*
 *The content was first presented at the CAS Casualty Loss Reserving Seminar, the CIA Appointed Actuary Virtual Seminar and at GIRO in the Autumn of 2020. The presentation can be viewed [here](http://mp.streamamg.com/tiny/tsob9).*
 
 
