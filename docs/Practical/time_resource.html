@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2022-04-23">
 
-<title>Machine Learning in Non-Life Reserving - 16&nbsp; Practical Considerations Part 1: Time &amp; Resource Limitations</title>
+<title>Machine Learning in Non-Life Reserving - 19&nbsp; Practical Considerations Part 1: Time &amp; Resource Limitations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,7 +18,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../summary.html" rel="next">
+<link href="../Survey/survey.html" rel="next">
 <link href="../Practical/practical.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -58,7 +58,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -70,11 +71,16 @@ ul.task-list li input[type="checkbox"] {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Practical/practical.html">Practical Considerations</a></li><li class="breadcrumb-item"><a href="../Practical/time_resource.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav>
@@ -82,195 +88,239 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Machine Learning in Non-Life Reserving</a> 
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Foundations/foundations.html" class="sidebar-item-text sidebar-link">Foundations Workstream</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a href="../Foundations/foundations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foundations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/01_getting_started.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></a>
+  <a href="../Foundations/01_getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Getting started</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/02_intro_to_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to R</span></a>
+  <a href="../Foundations/02_intro_to_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/03_top_ten_r_packages.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">My Top 10 R Packages for Data Analysis</span></a>
+  <a href="../Foundations/03_top_ten_r_packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">My Top 10 R Packages for Data Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/04_a_tidyverse.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The tidyverse for actuaries</span></a>
+  <a href="../Foundations/04_a_tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The tidyverse for actuaries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/04_b_datatable.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R’s data.table - a useful package for actuaries</span></a>
+  <a href="../Foundations/04_b_datatable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R’s data.table - a useful package for actuaries</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/05_a_glms_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Reserving with GLMs in R</span></a>
+  <a href="../Foundations/05_a_glms_r.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Reserving with GLMs in R</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/06_lasso.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Self-assembling claim reserving models using the LASSO</span></a>
+  <a href="../Foundations/06_lasso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Self-assembling claim reserving models using the LASSO</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/07_mlr3example.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ML modelling on triangles - a worked example</span></a>
+  <a href="../Foundations/07_mlr3example.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">ML modelling on triangles - a worked example</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Foundations/08_intro_glm_gam_xgboost.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting to grips with GLM, GAM and XGBoost</span></a>
+  <a href="../Foundations/08_intro_glm_gam_xgboost.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Getting to grips with GLM, GAM and XGBoost</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Data/data.html" class="sidebar-item-text sidebar-link">Data Workstream</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a href="../Data/data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Data/simulationmachine.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">simulationmachine</span></a>
+  <a href="../Data/simulationmachine.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">simulationmachine engine for simulating data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Data/synthetic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">synthetic</span></a>
+  <a href="../Data/splice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">SPLICE</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Literature/literature.html" class="sidebar-item-text sidebar-link">Literature review Workstream</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a href="../Literature/literature.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Literature review</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Literature/history_nn_papers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></a>
+  <a href="../Literature/baudry.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Non-parametric individual claim reserving in insurance</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Literature/al_mudafer.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Probabilistic Forecasting with Neural Networks Applied to Loss Reserving</span></a>
+  <a href="../Literature/history_nn_papers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">A brief history of papers looking at using neural networks in reserving</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Literature/baudry.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Non-parametric individual claim reserving in insurance</span></a>
+  <a href="../Literature/al_mudafer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Probabilistic Forecasting with Neural Networks Applied to Loss Reserving</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Practical/practical.html" class="sidebar-item-text sidebar-link">Practical Considerations Workstream</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a href="../Research/research.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Practical/time_resource.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></a>
+  <a href="../Research/giro-2021-questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Machine learning: Reserving on triangles - Q &amp; A after GIRO 2021</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Research/giro-2021-diagnostics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Modelling Five Scenarios using the SynthETIC Dataset - Diagnostic from GIRO 2021</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Research/chainladder_to_individual_mdn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">From Chain Ladder to Individual Mixture Density Networks on SPLICE Data</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Conclusion</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a href="../Practical/practical.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Considerations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></a>
+  <a href="../Practical/time_resource.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">References</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a href="../Survey/survey.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Surveys</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../references.html" class="sidebar-item-text sidebar-link">References</a>
+  <a href="../Survey/surveys2020.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">2020 Surveys of the use of ML in reserving</span></span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-pc-time-resource" id="toc-sec-pc-time-resource" class="nav-link active" data-scroll-target="#sec-pc-time-resource"><span class="toc-section-number">17</span>  Practical Considerations Part 1: Time &amp; Resource Limitations</a>
+  <li><a href="#sec-pc-time-resource" id="toc-sec-pc-time-resource" class="nav-link active" data-scroll-target="#sec-pc-time-resource"><span class="header-section-number">20</span> Practical Considerations Part 1: Time &amp; Resource Limitations</a>
   <ul class="collapse">
-  <li><a href="#why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" id="toc-why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" class="nav-link" data-scroll-target="#why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market"><span class="toc-section-number">17.1</span>  Why is Machine Learning not commonly being adopted in the UK Reserving Market?</a></li>
-  <li><a href="#time-limitations" id="toc-time-limitations" class="nav-link" data-scroll-target="#time-limitations"><span class="toc-section-number">17.2</span>  Time Limitations</a>
+  <li><a href="#why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" id="toc-why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" class="nav-link" data-scroll-target="#why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market"><span class="header-section-number">20.1</span> Why is Machine Learning not commonly being adopted in the UK Reserving Market?</a></li>
+  <li><a href="#time-limitations" id="toc-time-limitations" class="nav-link" data-scroll-target="#time-limitations"><span class="header-section-number">20.2</span> Time Limitations</a>
   <ul class="collapse">
-  <li><a href="#process-issues" id="toc-process-issues" class="nav-link" data-scroll-target="#process-issues"><span class="toc-section-number">17.2.1</span>  Process Issues</a></li>
-  <li><a href="#what-can-be-done" id="toc-what-can-be-done" class="nav-link" data-scroll-target="#what-can-be-done"><span class="toc-section-number">17.2.2</span>  What Can Be Done?</a></li>
+  <li><a href="#process-issues" id="toc-process-issues" class="nav-link" data-scroll-target="#process-issues"><span class="header-section-number">20.2.1</span> Process Issues</a></li>
+  <li><a href="#what-can-be-done" id="toc-what-can-be-done" class="nav-link" data-scroll-target="#what-can-be-done"><span class="header-section-number">20.2.2</span> What Can Be Done?</a></li>
   </ul></li>
-  <li><a href="#resource-limitations" id="toc-resource-limitations" class="nav-link" data-scroll-target="#resource-limitations"><span class="toc-section-number">17.3</span>  Resource Limitations</a>
+  <li><a href="#resource-limitations" id="toc-resource-limitations" class="nav-link" data-scroll-target="#resource-limitations"><span class="header-section-number">20.3</span> Resource Limitations</a>
   <ul class="collapse">
-  <li><a href="#data-scientists-in-reserving" id="toc-data-scientists-in-reserving" class="nav-link" data-scroll-target="#data-scientists-in-reserving"><span class="toc-section-number">17.3.1</span>  Data Scientists in Reserving</a></li>
-  <li><a href="#what-can-be-done-1" id="toc-what-can-be-done-1" class="nav-link" data-scroll-target="#what-can-be-done-1"><span class="toc-section-number">17.3.2</span>  What Can Be Done?</a></li>
+  <li><a href="#data-scientists-in-reserving" id="toc-data-scientists-in-reserving" class="nav-link" data-scroll-target="#data-scientists-in-reserving"><span class="header-section-number">20.3.1</span> Data Scientists in Reserving</a></li>
+  <li><a href="#what-can-be-done-1" id="toc-what-can-be-done-1" class="nav-link" data-scroll-target="#what-can-be-done-1"><span class="header-section-number">20.3.2</span> What Can Be Done?</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -281,7 +331,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Practical Considerations Part 1: Time &amp; Resource Limitations</span></h1>
 </div>
 
 
@@ -301,17 +351,18 @@ ul.task-list li input[type="checkbox"] {
       <p class="date">April 23, 2022</p>
     </div>
   </div>
+  
     
   </div>
   
 
 </header>
 
-<section id="sec-pc-time-resource" class="level1" data-number="17">
-<h1 data-number="17"><span class="header-section-number">17</span> Practical Considerations Part 1: Time &amp; Resource Limitations</h1>
+<section id="sec-pc-time-resource" class="level1" data-number="20">
+<h1 data-number="20"><span class="header-section-number">20</span> Practical Considerations Part 1: Time &amp; Resource Limitations</h1>
 <p><em>This <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/post/pc-considerations-p1/">article</a> was written by <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/authors/iwilliams/">Isabelle Williams</a> and originally published on 23 April 2022.</em></p>
-<section id="why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market"><span class="header-section-number">17.1</span> Why is Machine Learning not commonly being adopted in the UK Reserving Market?</h2>
+<section id="why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market" class="level2" data-number="20.1">
+<h2 data-number="20.1" class="anchored" data-anchor-id="why-is-machine-learning-not-commonly-being-adopted-in-the-uk-reserving-market"><span class="header-section-number">20.1</span> Why is Machine Learning not commonly being adopted in the UK Reserving Market?</h2>
 <p>There are many reasons why Machine Learning (“ML”) techniques are currently not being adopted in the UK reserving market. Previously, the issues faced were more theoretical than practical. However, in recent times, interest in this area has grown, and many companies are now considering investing in ML techniques for their reserving teams.</p>
 <p>As stated in the <a href="https://institute-and-faculty-of-actuaries.github.io/mlr-blog/pdf/MLR_UKSurveyIFoA.pdf">MLR Working Party UK Survey</a>, the three main reasons why companies are not currently investing into these methods are:</p>
 <ol type="1">
@@ -321,8 +372,8 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>The first of these will be discussed in this blog post, with the second and third points to follow as separate discussions.</p>
 </section>
-<section id="time-limitations" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="time-limitations"><span class="header-section-number">17.2</span> Time Limitations</h2>
+<section id="time-limitations" class="level2" data-number="20.2">
+<h2 data-number="20.2" class="anchored" data-anchor-id="time-limitations"><span class="header-section-number">20.2</span> Time Limitations</h2>
 <p>Why are limits on reserving actuaries’ time such a barrier to developing ML techniques?</p>
 <p>This author believes that the answer lies in the quality of <strong>data and processes</strong> currently available to, and followed by, reserving teams. This can either be due to:</p>
 <ul>
@@ -341,7 +392,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/tr_Picture1.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">The Time Catch-22</figcaption><p></p>
+<figcaption class="figure-caption">The Time Catch-22</figcaption>
 </figure>
 </div>
 <p>The Catch-22, or “vicious cycle” above begins with the highlighted issue, which is <strong>poor data and process quality</strong>. This fundamental problem then goes on to affect the entire reserving process, and to fuel the propagation of this cycle.</p>
@@ -359,8 +410,8 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 <p><strong>Process errors</strong>, however, frequently lie within the remit of the actuarial team, and as such can be addressed by the team themselves. For this reason, these will be the main focus of discussion in this longer-form article.</p>
-<section id="process-issues" class="level3" data-number="17.2.1">
-<h3 data-number="17.2.1" class="anchored" data-anchor-id="process-issues"><span class="header-section-number">17.2.1</span> Process Issues</h3>
+<section id="process-issues" class="level3" data-number="20.2.1">
+<h3 data-number="20.2.1" class="anchored" data-anchor-id="process-issues"><span class="header-section-number">20.2.1</span> Process Issues</h3>
 <p><strong>Process issues are common in any industry that deals with large amounts of data</strong>, and the insurance industry is no exception.</p>
 <p>With many changes in the adoption of that technology and software across the market in recent years, it is not uncommon to find data processes that have one or more of the following issues:</p>
 <p><img src="Images/tr_Picture2.png" class="img-fluid"></p>
@@ -388,13 +439,13 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 <p>Once again, it should be noted that <strong>whatever the reason for process issues or inefficiencies, the outcome is the same</strong> when it comes to the pressure on staff time, and the resultant inability of the staff to invest in ML techniques.</p>
-<section id="complexity-of-processes" class="level4" data-number="17.2.1.1">
-<h4 data-number="17.2.1.1" class="anchored" data-anchor-id="complexity-of-processes"><span class="header-section-number">17.2.1.1</span> Complexity of Processes</h4>
+<section id="complexity-of-processes" class="level4" data-number="20.2.1.1">
+<h4 data-number="20.2.1.1" class="anchored" data-anchor-id="complexity-of-processes"><span class="header-section-number">20.2.1.1</span> Complexity of Processes</h4>
 <p>The diagram below illustrates where such inefficiencies might occur within a typical reserving department data process:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/tr_Picture3.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">A possible typical reserving process</figcaption><p></p>
+<figcaption class="figure-caption">A possible typical reserving process</figcaption>
 </figure>
 </div>
 <p>In some organisations, who have begun to adopt ML in their reserving processes, the process could potentially be <strong>even more complicated</strong>, and may involve the running of an <strong>R or Python script</strong> at any stage between the generation of the raw data and the production of the report.</p>
@@ -409,7 +460,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/tr_Picture4.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">The impact of a complex multi-stage process</figcaption><p></p>
+<figcaption class="figure-caption">The impact of a complex multi-stage process</figcaption>
 </figure>
 </div>
 <p>In general, <strong>the longer the process and the more stages the process goes through, the longer it will take to run in practice</strong>.</p>
@@ -421,8 +472,8 @@ ul.task-list li input[type="checkbox"] {
 <li>…the knock-on effects from longer required processing <strong>not only</strong> impacts the time of analysts, but <strong>also the time of senior reviewers</strong>.</li>
 </ul>
 </section>
-<section id="software-considerations" class="level4" data-number="17.2.1.2">
-<h4 data-number="17.2.1.2" class="anchored" data-anchor-id="software-considerations"><span class="header-section-number">17.2.1.2</span> Software Considerations</h4>
+<section id="software-considerations" class="level4" data-number="20.2.1.2">
+<h4 data-number="20.2.1.2" class="anchored" data-anchor-id="software-considerations"><span class="header-section-number">20.2.1.2</span> Software Considerations</h4>
 <p>In assessing inefficiencies within a reserving process, a major factor that we must consider is <strong>the type of software used</strong>, particularly regarding the following practical considerations:</p>
 <p><img src="Images/tr_Picture5.png" class="img-fluid"></p>
 <p>Many reserving processes involve at least one stage where the data must be processed in Excel. <strong>It is worth noting that this thinking can be applied to any other</strong> software, but as Excel is so commonly used for reserving in the UK market at this time, it makes sense to assess this software with respect to the considerations outlined above.</p>
@@ -433,8 +484,8 @@ ul.task-list li input[type="checkbox"] {
 <p>However, it is worth noting that <strong>the choice of software for one particular stage can impact the efficiency of the entire process</strong>, and therefore the time it takes to run.</p>
 <p>In addition, <strong>the choice of software can impact the ability of the process to easily link in to ML software</strong>. This is something that needs to be considered when adding on additional ML modelling stages to a reserving process, or replacing modelling stages in an existing process with ML techniques.</p>
 </section>
-<section id="short-term-thinking" class="level4" data-number="17.2.1.3">
-<h4 data-number="17.2.1.3" class="anchored" data-anchor-id="short-term-thinking"><span class="header-section-number">17.2.1.3</span> Short-Term Thinking</h4>
+<section id="short-term-thinking" class="level4" data-number="20.2.1.3">
+<h4 data-number="20.2.1.3" class="anchored" data-anchor-id="short-term-thinking"><span class="header-section-number">20.2.1.3</span> Short-Term Thinking</h4>
 <p>A final point on process design is the point of prioritising <strong>“quick fixes”</strong> and <strong>“quick wins”</strong> over spending the time on building a process that has a longer build time, but is more robust in the long term.</p>
 <p>At the end of running many regular processes, it is common for time to be ring-fenced for “process development”. However, this time is often:</p>
 <ul>
@@ -446,17 +497,17 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/tr_Picture7.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">The impact of short-term thinking</figcaption><p></p>
+<figcaption class="figure-caption">The impact of short-term thinking</figcaption>
 </figure>
 </div>
 <p><strong>With the time constraints frequently imposed on reserving teams</strong>, often from senior management, it is understandable that teams will prefer to implement quick short-term fixes in software that they are more familiar with than longer-term transformation projects. However, <strong>short-term thinking often causes further issues down the line.</strong></p>
 <p>This short-term thinking <strong>particularly impacts the adoption of new software</strong>, which as has already been mentioned, is often time-consuming to learn and test. In addition, a <strong>lack of recognition of the long-term benefits</strong> of adopting new software contributes to this hesitancy, leading teams to cling to the familiar and “stick with what they know”.</p>
 </section>
 </section>
-<section id="what-can-be-done" class="level3" data-number="17.2.2">
-<h3 data-number="17.2.2" class="anchored" data-anchor-id="what-can-be-done"><span class="header-section-number">17.2.2</span> What Can Be Done?</h3>
-<section id="step-1-recognise-required-resources" class="level4" data-number="17.2.2.1">
-<h4 data-number="17.2.2.1" class="anchored" data-anchor-id="step-1-recognise-required-resources"><span class="header-section-number">17.2.2.1</span> Step 1: Recognise Required Resources</h4>
+<section id="what-can-be-done" class="level3" data-number="20.2.2">
+<h3 data-number="20.2.2" class="anchored" data-anchor-id="what-can-be-done"><span class="header-section-number">20.2.2</span> What Can Be Done?</h3>
+<section id="step-1-recognise-required-resources" class="level4" data-number="20.2.2.1">
+<h4 data-number="20.2.2.1" class="anchored" data-anchor-id="step-1-recognise-required-resources"><span class="header-section-number">20.2.2.1</span> Step 1: Recognise Required Resources</h4>
 <p><strong>Recognising the resources required to fix the problem</strong> is the first step in the process. Once the extent of the issues in the current process are recognised, management can make decisions as to where the resources will come from. For example:</p>
 <ul>
 <li>Resources can be diverted away from regular processes</li>
@@ -465,8 +516,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Further analysts can be recruited, if required.</li>
 </ul>
 </section>
-<section id="step-2-clean-up-processes" class="level4" data-number="17.2.2.2">
-<h4 data-number="17.2.2.2" class="anchored" data-anchor-id="step-2-clean-up-processes"><span class="header-section-number">17.2.2.2</span> Step 2: Clean Up Processes</h4>
+<section id="step-2-clean-up-processes" class="level4" data-number="20.2.2.2">
+<h4 data-number="20.2.2.2" class="anchored" data-anchor-id="step-2-clean-up-processes"><span class="header-section-number">20.2.2.2</span> Step 2: Clean Up Processes</h4>
 <p>Once resources are made available, the next action that can be taken is to <strong>clean up issues in the process</strong>. A good first step in this regard is to set up automated reconciliation and sense-checking processes on external data, or alternative internal sources. For example:</p>
 <ul>
 <li>Go through with staff what checks are currently implemented for common data issues</li>
@@ -474,8 +525,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Consider software that could potentially be used to implement these automated checks, and how it can be made to tie in to the current process.</li>
 </ul>
 </section>
-<section id="step-3-automate-automate-automate" class="level4" data-number="17.2.2.3">
-<h4 data-number="17.2.2.3" class="anchored" data-anchor-id="step-3-automate-automate-automate"><span class="header-section-number">17.2.2.3</span> Step 3: Automate, automate, automate!</h4>
+<section id="step-3-automate-automate-automate" class="level4" data-number="20.2.2.3">
+<h4 data-number="20.2.2.3" class="anchored" data-anchor-id="step-3-automate-automate-automate"><span class="header-section-number">20.2.2.3</span> Step 3: Automate, automate, automate!</h4>
 <p>The next action that can be taken is to implement automated reserving tools, such as the Chain Ladder Package (available in <a href="https://www.rdocumentation.org/packages/ChainLadder/versions/0.2.15">R</a> and <a href="https://chainladder-python.readthedocs.io/en/latest/intro.html">Python</a>) to automate reserving processes.</p>
 <p>Managers should bear in mind the following:</p>
 <ul>
@@ -490,8 +541,8 @@ ul.task-list li input[type="checkbox"] {
 <li>…an automatically generated framework can be exceptionally helpful, particularly in reporting periods where there may be very little movement to report.</li>
 </ul>
 </section>
-<section id="step-4-make-it-sustainable" class="level4" data-number="17.2.2.4">
-<h4 data-number="17.2.2.4" class="anchored" data-anchor-id="step-4-make-it-sustainable"><span class="header-section-number">17.2.2.4</span> Step 4: Make it Sustainable</h4>
+<section id="step-4-make-it-sustainable" class="level4" data-number="20.2.2.4">
+<h4 data-number="20.2.2.4" class="anchored" data-anchor-id="step-4-make-it-sustainable"><span class="header-section-number">20.2.2.4</span> Step 4: Make it Sustainable</h4>
 <p>It is important that once an automated process is created, <strong>the process is made as sustainable as it possibly can be</strong>. Attention should always be paid to how bug fixes are implemented, and how the process is maintained over time as the needs of the business change.</p>
 <p>Integration into the rest of the processes used within the department is also paramount. Managers can research into how software that could produce ML models can be linked into other software currently used within the department. For example:</p>
 <ul>
@@ -502,8 +553,8 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 </section>
-<section id="resource-limitations" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="resource-limitations"><span class="header-section-number">17.3</span> Resource Limitations</h2>
+<section id="resource-limitations" class="level2" data-number="20.3">
+<h2 data-number="20.3" class="anchored" data-anchor-id="resource-limitations"><span class="header-section-number">20.3</span> Resource Limitations</h2>
 <p>Why are limits on actuarial resources a barrier to implementing ML techniques?</p>
 <p>The author believes that the issue is three-fold:</p>
 <ol type="1">
@@ -515,7 +566,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/tr_Picture8.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">The Resources Catch-22</figcaption><p></p>
+<figcaption class="figure-caption">The Resources Catch-22</figcaption>
 </figure>
 </div>
 <p>The last of these points is already being addressed by the working party in the provision of resources, but the causes behind the first two have not yet been addressed.</p>
@@ -525,14 +576,14 @@ ul.task-list li input[type="checkbox"] {
 <li>Lack of reserving resources to complete regular work, which leads to the Time Constraints Catch-22 previously discussed</li>
 </ul>
 <p>The lack of opportunities in the actuarial curriculum to pursue ML research will also lead to the second point, as these skills may not be seen as a priority for many actuaries while the IFoA does not emphasise the development of these skills via the exam curriculum. <strong>It is worth noting that the Data Science learning path provided gives a good theoretical understanding of many ML techniques</strong>, but does not yet provide a practical pathway for learning ML-relevant techniques.</p>
-<section id="data-scientists-in-reserving" class="level3" data-number="17.3.1">
-<h3 data-number="17.3.1" class="anchored" data-anchor-id="data-scientists-in-reserving"><span class="header-section-number">17.3.1</span> Data Scientists in Reserving</h3>
+<section id="data-scientists-in-reserving" class="level3" data-number="20.3.1">
+<h3 data-number="20.3.1" class="anchored" data-anchor-id="data-scientists-in-reserving"><span class="header-section-number">20.3.1</span> Data Scientists in Reserving</h3>
 <p>An apparently simple solution to the lack of ML expertise and resources, as well as the lack of time to develop these resources, in reserving teams is to hire, or second, data science resource into the team. However, this is not currently common practice for a number of reasons, which are listed below:</p>
 <p><img src="Images/tr_Picture9.png" class="img-fluid"></p>
 <p>All of these are issues that can be resolved, but many companies would prefer to train their own resources. This is also a valid option for many companies, particularly those without specific data science resource available. However, referring back to the Resources Catch-22, the issue among management when it comes to developing this resource is often one of expertise.</p>
 </section>
-<section id="what-can-be-done-1" class="level3" data-number="17.3.2">
-<h3 data-number="17.3.2" class="anchored" data-anchor-id="what-can-be-done-1"><span class="header-section-number">17.3.2</span> What Can Be Done?</h3>
+<section id="what-can-be-done-1" class="level3" data-number="20.3.2">
+<h3 data-number="20.3.2" class="anchored" data-anchor-id="what-can-be-done-1"><span class="header-section-number">20.3.2</span> What Can Be Done?</h3>
 <p>As previously stated, <strong>one of the goals of this working party is to improve the availability of machine learning resources, and to create applicable machine learning resources for reserving actuaries to make use of</strong>. Therefore, some of the issues present within the Catch-22 will be addressed, at least with regards to the availability of applicable ML resources.</p>
 <p>Once these resources are available, there is the issue of what can be done to ensure that methods pioneered by the working party are adopted by reserving actuaries.</p>
 <ul>
@@ -594,9 +645,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -608,7 +673,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -644,36 +726,140 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../Practical/practical.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Practical Considerations Workstream</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Practical Considerations</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../summary.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../Survey/survey.html" class="pagination-link">
+        <span class="nav-page-text">Surveys</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

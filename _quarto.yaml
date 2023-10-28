@@ -71,4 +71,4 @@ format:
   html:
     theme: cosmo
 
-embed-resources: true
+# embed-resources: true
