@@ -1,0 +1,32 @@
+---
+title: "Survey of the 2023 Italian Market"
+date: "2025-02-03"
+author: "Rocco Roberto Cerchiara"
+categories: ["survey"]
+description: "A report on the use of ML in reserving in Italy"
+image: italy_flag.jpg
+---
+
+![](italy_flag.jpg)
+
+In 2023 (and 2020) Rocco Roberto Cerchiara conducted surveys on the use of ML in reserving in Italy.
+
+The survey found that there was enthusiasm for developing techniques for machine learning in reserving. Whilst there has been a large interest in the actuarial offices, management is more cautious.
+
+The main findings were:
+
+-   Companies are at very different stages in their research, but overall we are still at an early stage
+-   The main barriers companies were finding were:
+    -   Data Quality
+    -   Lack of best practice
+    -   Time and resource constraints, and skills.
+
+There was less appetite within companies with Standard Formula and/or small/medium companies.
+
+Insurance companies reported that they were at an early knowledge-gathering stage regarding the use of ML algorithms, adopted mainly for the optimization of internal processes and, only in limited cases, in the relations with policyholders.
+
+Further details are available in this [slide deck](./Survey%20ML%20Italy%202023%202024.pdf).
+
+## About the author
+
+-   [Rocco Roberto Cerchiara](../../../authors/rrcerchiara/)

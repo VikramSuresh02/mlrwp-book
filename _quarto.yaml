@@ -57,6 +57,7 @@ book:
     - part: Survey/survey.qmd
       chapters:
         - Survey/surveys2020.qmd
+        - Survey/surveyitaly.qmd
 
 
     # concluding material

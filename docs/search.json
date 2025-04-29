@@ -389,7 +389,10 @@
     "href": "Literature/literature.html",
     "title": "Literature review",
     "section": "",
-    "text": "The Literature review workstream reviews current literature on the use of ML in reserving. In this part of the book, we cover some innovative techniques that we have learned about in the literature - the use of GBM models in individual claim reerving and the possibilities of neural networks."
+    "text": "The Literature review workstream reviews current literature on the use of ML in reserving. In this part of the book, we cover some innovative techniques that we have learned about in the literature - the use of GBM models in individual claim reerving and the possibilities of neural networks.",
+    "crumbs": [
+      "Literature review"
+    ]
   },
   {
     "objectID": "Literature/baudry.html#introduction",
@@ -591,15 +594,23 @@
     "objectID": "Survey/surveys2020.html#uk",
     "href": "Survey/surveys2020.html#uk",
     "title": "20  2020 Surveys of the use of ML in reserving",
-    "section": "20.1 UK",
-    "text": "20.1 UK\n\n\n\n\n\n\nEnthusiasm from reserving actuaries but stakeholder engagement low\n\n\n\n\n\n\nIn 2020 undertook a survey to find out to what extent machine learning is currently being used in reserving in the UK.\nWe found that there was near universal enthusiasm for developing techniques amongst reserving actuaries. This contrasts starkly with the GIROC 2014 reserving survey which found that “triangles and chain ladder and Bornhuetter-Ferguson type techniques are still the methods of choice and there is very little appetite for new methodologies to be found.” There certainly appears to have been quite a sea change in attitudes towards new reserving techniques since then.\nDespite this enthusiasm only a very small number of companies have actually applied machine learning to reserving so far. It seems a gap is opening up in the motor insurance industry - will these companies gain an advantage over their competitors?\nOne of the key differentials seems to be stakeholder engagement: with a key barrier for reserving teams being time and resource limitations, investment and support from management is vital. Developing the necessary knowledge is not something that can be learned in an afternoon. To quote one respondent “it is complicated and is a lot of work”.\nIt is interesting to note that many of the companies already use machine learning for pricing, so will have a lot of the skills within their organisation, but they are not necessarily turning their attention to applying these to reserving.\nFor the fuller picture, and to see why some companies are choosing to invest in this, please see the UK write-up here.\nPlease note, the UK survey comprised personal lines companies only."
+    "section": "",
+    "text": "Enthusiasm from reserving actuaries but stakeholder engagement low",
+    "crumbs": [
+      "Surveys",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>2020 Surveys of the use of ML in reserving</span>"
+    ]
   },
   {
     "objectID": "Survey/surveys2020.html#canada",
     "href": "Survey/surveys2020.html#canada",
     "title": "20  2020 Surveys of the use of ML in reserving",
     "section": "20.2 Canada",
-    "text": "20.2 Canada\nOn behalf of the working party, Jacqueline Friedland conducted a survey among Canadian actuaries on the use of machine learning (ML) in reserving. The survey respondents consisted of:\n\nNine insurers including\n\nCanadian and global companies\nOne reinsurer\n\nSix consulting firms including\n\nCanadian and global firms\nThree of the big 4 accounting firms\n\nThree telephone interviews and twelve email responses\n\nOverall there was enthusiasm for the potential of ML to assist with setting reserves, with four insurers currently using ML in the reserving process. For three of these insurers, ML was used for additional insights, but, significantly, the final insurer used ML to book reserves.\nThe full findings of the survey can be found here."
+    "text": "20.2 Canada\nOn behalf of the working party, Jacqueline Friedland conducted a survey among Canadian actuaries on the use of machine learning (ML) in reserving. The survey respondents consisted of:\n\nNine insurers including\n\nCanadian and global companies\nOne reinsurer\n\nSix consulting firms including\n\nCanadian and global firms\nThree of the big 4 accounting firms\n\nThree telephone interviews and twelve email responses\n\nOverall there was enthusiasm for the potential of ML to assist with setting reserves, with four insurers currently using ML in the reserving process. For three of these insurers, ML was used for additional insights, but, significantly, the final insurer used ML to book reserves.\nThe full findings of the survey can be found here.",
+    "crumbs": [
+      "Surveys",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>2020 Surveys of the use of ML in reserving</span>"
+    ]
   },
   {
     "objectID": "summary.html",
@@ -607,5 +618,38 @@
     "title": "21  Summary",
     "section": "",
     "text": "the content in this book was created using the following R environment\n\nsessionInfo()\n\nR version 4.3.1 (2023-06-16 ucrt)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 10 x64 (build 19045)\n\nMatrix products: default\n\n\nlocale:\n[1] LC_COLLATE=English_Ireland.utf8  LC_CTYPE=English_Ireland.utf8   \n[3] LC_MONETARY=English_Ireland.utf8 LC_NUMERIC=C                    \n[5] LC_TIME=English_Ireland.utf8    \n\ntime zone: Europe/Dublin\ntzcode source: internal\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base     \n\nloaded via a namespace (and not attached):\n [1] htmlwidgets_1.6.2 compiler_4.3.1    fastmap_1.1.1     cli_3.6.1        \n [5] htmltools_0.5.6.1 tools_4.3.1       rstudioapi_0.15.0 rmarkdown_2.25   \n [9] knitr_1.44        jsonlite_1.8.7    xfun_0.40         digest_0.6.33    \n[13] rlang_1.1.1       renv_1.0.3        evaluate_0.22"
+  },
+  {
+    "objectID": "Survey/surveys2020.html",
+    "href": "Survey/surveys2020.html",
+    "title": "20  2020 Surveys of the use of ML in reserving",
+    "section": "",
+    "text": "20.1 UK\nIn 2020 Sarah MacDonnell and Jacqueline Friedland conducted surveys on the use of ML in reserving in the UK and Canada respectively.\nIn 2020 undertook a survey to find out to what extent machine learning is currently being used in reserving in the UK.\nWe found that there was near universal enthusiasm for developing techniques amongst reserving actuaries. This contrasts starkly with the GIROC 2014 reserving survey which found that “triangles and chain ladder and Bornhuetter-Ferguson type techniques are still the methods of choice and there is very little appetite for new methodologies to be found.” There certainly appears to have been quite a sea change in attitudes towards new reserving techniques since then.\nDespite this enthusiasm only a very small number of companies have actually applied machine learning to reserving so far. It seems a gap is opening up in the motor insurance industry - will these companies gain an advantage over their competitors?\nOne of the key differentials seems to be stakeholder engagement: with a key barrier for reserving teams being time and resource limitations, investment and support from management is vital. Developing the necessary knowledge is not something that can be learned in an afternoon. To quote one respondent “it is complicated and is a lot of work”.\nIt is interesting to note that many of the companies already use machine learning for pricing, so will have a lot of the skills within their organisation, but they are not necessarily turning their attention to applying these to reserving.\nFor the fuller picture, and to see why some companies are choosing to invest in this, please see the UK write-up here.\nPlease note, the UK survey comprised personal lines companies only.",
+    "crumbs": [
+      "Surveys",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>2020 Surveys of the use of ML in reserving</span>"
+    ]
+  },
+  {
+    "objectID": "Survey/surveyitaly.html",
+    "href": "Survey/surveyitaly.html",
+    "title": "21  Survey of the 2023 Italian Market",
+    "section": "",
+    "text": "21.1 About the author\nIn 2023 (and 2020) Rocco Roberto Cerchiara conducted surveys on the use of ML in reserving in Italy.\nThe survey found that there was enthusiasm for developing techniques for machine learning in reserving. Whilst there has been a large interest in the actuarial offices, management is more cautious.\nThe main findings were:\nThere was less appetite within companies with Standard Formula and/or small/medium companies.\nInsurance companies reported that they were at an early knowledge-gathering stage regarding the use of ML algorithms, adopted mainly for the optimization of internal processes and, only in limited cases, in the relations with policyholders.\nFurther details are available in this slide deck.",
+    "crumbs": [
+      "Surveys",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Survey of the 2023 Italian Market</span>"
+    ]
+  },
+  {
+    "objectID": "Survey/surveyitaly.html#about-the-author",
+    "href": "Survey/surveyitaly.html#about-the-author",
+    "title": "21  Survey of the 2023 Italian Market",
+    "section": "",
+    "text": "Rocco Roberto Cerchiara",
+    "crumbs": [
+      "Surveys",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Survey of the 2023 Italian Market</span>"
+    ]
   }
 ]
